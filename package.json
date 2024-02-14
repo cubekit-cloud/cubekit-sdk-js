@@ -1,7 +1,7 @@
 {
-  "name": "cubekit-client-sdk",
+  "name": "@cubekit-cloud/cubekit-sdk-js",
   "version": "1.0.0",
-  "description": "cubekit-client-sdk - the library for working with auto generated API from cubekit.com",
+  "description": "@cubekit-cloud/cubekit-sdk-js - the library for working with auto generated API from cubekit.com",
   "main": "./dist/index.js",
   "types": "./dist/index.d.js",
   "module": "./dist/index.js",
@@ -10,8 +10,7 @@
     "dev": "webpack --env development --watch",
     "build": "webpack --env poduction && npm run docs",
     "docs": "jsdoc2md -c ./jsdoc2md.json -t ./README.hbs ./src/core/CubekitOrmClient.ts > ./README.md",
-    "test": "jest",
-    "docss": "jsdoc2md ./src/core/CubekitOrmClient.ts"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +19,8 @@
   "keywords": [
     "cubekit",
     "sdk",
-    "cubekit-client"
+    "cubekit-client",
+    "cubekit-cloud"
   ],
   "author": "Ivan Fontosh",
   "license": "ISC",
