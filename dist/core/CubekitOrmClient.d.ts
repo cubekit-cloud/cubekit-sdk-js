@@ -5,6 +5,19 @@ declare class CubekitOrmClient {
     private axios;
     constructor(config: IClientConfig);
     /**
+     * Set new configuration
+     * @function setConfig
+     * @param {IClientConfig} config - an object with new configuration
+     * @example
+     *const config: IClientConfig = {
+     *  baseUrl: '/';
+     *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
+     *}
+     *
+     *client.setConfig(config);
+     */
+    setConfig(config: IClientConfig): void;
+    /**
      * Send request to API cubkit.com with params.
      * @function send
      * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
