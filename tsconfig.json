@@ -17,6 +17,6 @@
 		"outDir": "dist",
 		"declarationMap": true
 	},
-	"include": ["./src", "tests"],
+	"include": ["./src", "tests", "test_local/a.test.ts"],
 	"exclude": ["node_modules", "dist"]
 }

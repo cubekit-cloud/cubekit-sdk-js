@@ -5,6 +5,7 @@
 - [Install](#install)
 - [Initialization](#initialization)
 - [Methods](#methods)
+  - [setConfig](#setConfig)
   - [send](#send)
 
 ## Quick start
@@ -30,6 +31,22 @@ client.send({...});
 
 ## Methods
 
+### setConfig
+
+Set new configuration
+
+
+#### Params
+- `config`
+  - Type: `IClientConfig`
+  - Description: an object with new configuration
+
+
+#### Example
+```JS
+const config: IClientConfig = { baseUrl: '/'; serviceKey: 'xxxx-xxxx-xxxx-xxxx';}client.setConfig(config);
+```
+* * *
 ### send
 
 Send request to API cubkit.com with params.

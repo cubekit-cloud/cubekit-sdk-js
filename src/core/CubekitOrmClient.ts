@@ -26,6 +26,23 @@ class CubekitOrmClient {
 	};
 
 	/**
+	 * Set new configuration
+	 * @function setConfig
+	 * @param {IClientConfig} config - an object with new configuration
+	 * @example
+	 *const config: IClientConfig = {
+	 *  baseUrl: '/';
+	 *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
+	 *}
+	 *
+	 *client.setConfig(config);
+	 */
+	public setConfig(config: IClientConfig) {
+		this.axios.defaults.baseURL = config.baseUrl;
+		this.axios.defaults.headers['x-api-key'] = config.serviceKey;
+	};
+
+	/**
 	 * Send request to API cubkit.com with params.
 	 * @function send
 	 * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
@@ -70,7 +87,7 @@ class CubekitOrmClient {
 		}
 
 		return path;
-	};
+	}
 
 	private search<T1, T2 = T1>(params: IRequestParameter<T1>) {
 		let url = params.path;
@@ -86,16 +103,16 @@ class CubekitOrmClient {
 		}
 		delete options.pagination;
 		return this.axios.post<IResponse<T2>>(url, options);
-	};
+	}
 
 	private getById<T1, T2 = T1>(params: IRequestParameter<T1>) {
 		const options = params.options as IGetByIdOptions<T1>;
 		return this.axios.post<IResponse<T2>>(this.preparePathWithId(params.path, options.id), options);
-	};
+	}
 
 	private create<T1, T2 = T1>(params: IRequestParameter<T1>) {
 		return this.axios.post<IResponse<T2>>(params.path, params.options);
-	};
+	}
 
 	private update<T1, T2 = T1>(params: IRequestParameter<T1>) {
 		const options = params.options as IUpdateOptions<T1>;
@@ -103,14 +120,14 @@ class CubekitOrmClient {
 			this.preparePathWithId(params.path, options.id),
 			params.options
 		);
-	};
+	}
 
 	private delete<T1, T2 = T1>(params: IRequestParameter<T1>) {
 		const options = params.options as IDeleteOptions;
 		return this.axios.delete<IResponse<T2>>(this.preparePathWithId(params.path, options.id), {
 			data: params.options,
 		});
-	};
+	}
 }
 
 export default CubekitOrmClient;
