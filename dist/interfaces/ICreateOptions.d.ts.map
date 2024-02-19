@@ -1,0 +1,1 @@
+{"version":3,"file":"ICreateOptions.d.ts","sourceRoot":"","sources":["../../src/interfaces/ICreateOptions.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,SAAS,CAAC;AAE5B,MAAM,CAAC,OAAO,WAAW,cAAc,CAAC,CAAC;IACrC,MAAM,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC,CAAC;IACxB,KAAK,CAAC,EAAE,OAAO,CAAC;IAChB,IAAI,EAAE,KAAK,CAAC,CAAC,CAAC,CAAC;CAClB"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"IXlsxExportSettings.d.ts","sourceRoot":"","sources":["../../src/interfaces/IXlsxExportSettings.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,mBAAmB;IACxC,MAAM,CAAC,EAAE;QACL,CAAC,GAAG,EAAE,MAAM,GAAG,OAAO,GAAG,MAAM,GAAG,MAAM,CAAC;KAC5C,CAAC;CACL"}
