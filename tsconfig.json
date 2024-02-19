@@ -15,7 +15,8 @@
 		"noEmit": false,
 		"allowJs": true,
 		"outDir": "dist",
-		"declarationMap": true
+		"declarationMap": true,
+		"preserveConstEnums": true
 	},
 	"include": ["./src", "tests", "test_local/a.test.ts"],
 	"exclude": ["node_modules", "dist"]
