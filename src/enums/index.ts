@@ -1,4 +1,4 @@
-export enum OperatorsEnum {
+export const enum OperatorsEnum {
     EQUAL = '=',
     INEQUAL = '!=',
     LIKE = 'like',
@@ -9,54 +9,54 @@ export enum OperatorsEnum {
     LESS_OR_EQUAL = '<=',
 }
 
-export enum FilterValueTypesEnum {
+export const enum FilterValueTypesEnum {
     POINTER = 'pointer',
     SCALAR = 'scalar',
 }
 
-export enum FilterBooleansEnum {
+export const enum FilterBooleansEnum {
     AND = 'and',
     OR = 'or',
 }
 
-export enum FilterTypesEnum {
+export const enum FilterTypesEnum {
     GROUP = 'group',
     SINGLE = 'single',
 }
 
-export enum JoinTypesEnum {
+export const enum JoinTypesEnum {
     LEFT = 'left',
     RIGHT = 'right',
     FULL = 'full',
     INNER = 'inner',
 }
 
-export enum OrderDirectionsEnum {
+export const enum OrderDirectionsEnum {
     ASC = 'asc',
     DESC = 'DESC',
 }
 
-export enum OrderNullPositionsEnum {
+export const enum OrderNullPositionsEnum {
     FIRST = 'first',
     LAST = 'last',
 }
 
-export enum ResponseTypeEnum {
+export const enum ResponseTypeEnum {
     RESOURCE = 'resource',
     EXPORT = 'export',
 }
 
-export enum FileExportTypesEnum {
+export const enum FileExportTypesEnum {
     XLSX = 'xlsx',
     CSV = 'csv',
 }
 
-export enum ExportEncodingTypesEnum {
+export const enum ExportEncodingTypesEnum {
     UTF_8 = 'utf-8',
     WINDOWS_1251 = 'windows-1251',
 }
 
-export enum RequestMethodsEnum {
+export const enum RequestMethodsEnum {
     SEARCH = 'search',
     GET_BY_ID = 'get_by_id',
     CREATE = 'create',

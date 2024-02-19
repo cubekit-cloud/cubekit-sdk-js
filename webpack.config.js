@@ -8,7 +8,7 @@ module.exports = ({ development }) => ({
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
-        library: 'cubekit_client_sdk',
+        library: 'CubekitSdkJs',
         libraryExport: 'default',
         libraryTarget: "umd",
         umdNamedDefine: true,
