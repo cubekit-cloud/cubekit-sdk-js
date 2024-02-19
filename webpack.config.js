@@ -10,6 +10,7 @@ module.exports = ({ development }) => ({
         path: path.resolve(__dirname, 'dist'),
         library: 'cubekit_client_sdk',
         libraryExport: 'default',
+        libraryTarget: "umd",
         umdNamedDefine: true,
         globalObject: 'typeof self === \'undefinded\' ? this : self',
     },
