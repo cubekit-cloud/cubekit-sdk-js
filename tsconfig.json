@@ -16,6 +16,9 @@
 		"allowJs": true,
 		"outDir": "dist",
 		"declarationMap": true,
+		"declarationDir": "dist/types",
+		"sourceMap": true,
+		"skipLibCheck": true,
 		"preserveConstEnums": true
 	},
 	"include": ["./src", "tests", "test_local/a.test.ts"],

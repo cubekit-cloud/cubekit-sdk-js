@@ -1,1 +1,0 @@
-{"version":3,"file":"IUpdateOptions.d.ts","sourceRoot":"","sources":["../../src/interfaces/IUpdateOptions.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,SAAS,CAAC;AAE5B,MAAM,CAAC,OAAO,WAAW,cAAc,CAAC,CAAC;IACrC,EAAE,EAAE,MAAM,CAAC;IACX,MAAM,CAAC,EAAE,KAAK,CAAC,MAAM,CAAC,CAAC,CAAC;IACxB,KAAK,CAAC,EAAE,OAAO,CAAC;IAChB,IAAI,EAAE,KAAK,CAAC,CAAC,CAAC,CAAC;CAClB"}

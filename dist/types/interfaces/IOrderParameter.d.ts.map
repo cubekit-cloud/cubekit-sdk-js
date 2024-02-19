@@ -1,0 +1,1 @@
+{"version":3,"file":"IOrderParameter.d.ts","sourceRoot":"","sources":["../../../src/interfaces/IOrderParameter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,mBAAmB,EAAE,sBAAsB,EAAE,MAAM,UAAU,CAAC;AAEvE,MAAM,CAAC,OAAO,WAAW,eAAe,CAAC,CAAC;IACtC,MAAM,EAAE,MAAM,CAAC,CAAC;IAChB,SAAS,EAAE,mBAAmB,CAAC;IAC/B,aAAa,EAAE,sBAAsB,CAAC;CACzC"}

@@ -1,4 +1,4 @@
-export declare const enum OperatorsEnum {
+export declare enum OperatorsEnum {
     EQUAL = "=",
     INEQUAL = "!=",
     LIKE = "like",
@@ -8,45 +8,45 @@ export declare const enum OperatorsEnum {
     LESS = "<",
     LESS_OR_EQUAL = "<="
 }
-export declare const enum FilterValueTypesEnum {
+export declare enum FilterValueTypesEnum {
     POINTER = "pointer",
     SCALAR = "scalar"
 }
-export declare const enum FilterBooleansEnum {
+export declare enum FilterBooleansEnum {
     AND = "and",
     OR = "or"
 }
-export declare const enum FilterTypesEnum {
+export declare enum FilterTypesEnum {
     GROUP = "group",
     SINGLE = "single"
 }
-export declare const enum JoinTypesEnum {
+export declare enum JoinTypesEnum {
     LEFT = "left",
     RIGHT = "right",
     FULL = "full",
     INNER = "inner"
 }
-export declare const enum OrderDirectionsEnum {
+export declare enum OrderDirectionsEnum {
     ASC = "asc",
     DESC = "DESC"
 }
-export declare const enum OrderNullPositionsEnum {
+export declare enum OrderNullPositionsEnum {
     FIRST = "first",
     LAST = "last"
 }
-export declare const enum ResponseTypeEnum {
+export declare enum ResponseTypeEnum {
     RESOURCE = "resource",
     EXPORT = "export"
 }
-export declare const enum FileExportTypesEnum {
+export declare enum FileExportTypesEnum {
     XLSX = "xlsx",
     CSV = "csv"
 }
-export declare const enum ExportEncodingTypesEnum {
+export declare enum ExportEncodingTypesEnum {
     UTF_8 = "utf-8",
     WINDOWS_1251 = "windows-1251"
 }
-export declare const enum RequestMethodsEnum {
+export declare enum RequestMethodsEnum {
     SEARCH = "search",
     GET_BY_ID = "get_by_id",
     CREATE = "create",
