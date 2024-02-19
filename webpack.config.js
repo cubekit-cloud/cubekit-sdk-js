@@ -6,7 +6,7 @@ module.exports = ({ development }) => ({
     devtool: development ? 'inline-source-map' : false,
     mode:  development ? 'development' : 'production',
     output: {
-        filename: 'cubekit-client-sdk.js',
+        filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
         library: 'cubekit_client_sdk',
         libraryExport: 'default',

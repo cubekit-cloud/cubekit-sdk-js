@@ -1,1 +1,0 @@
-{"version":3,"file":"IJoinOnParameter.d.ts","sourceRoot":"","sources":["../../../src/interfaces/IJoinOnParameter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,MAAM,UAAU,CAAC;AAEzC,MAAM,CAAC,OAAO,WAAW,gBAAgB;IACrC,IAAI,CAAC,EAAE,MAAM,CAAC;IACd,QAAQ,CAAC,EAAE,aAAa,CAAC;IACzB,KAAK,CAAC,EAAE,MAAM,CAAC;CAClB"}
