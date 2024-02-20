@@ -58,11 +58,11 @@ declare enum RequestMethodsEnum {
 
 interface IWhereParameter<T> {
     column: keyof T;
-    operator: OperatorsEnum;
+    operator?: OperatorsEnum;
     value: string;
-    value_type: FilterValueTypesEnum;
-    boolean: FilterBooleansEnum;
-    type: FilterTypesEnum;
+    value_type?: FilterValueTypesEnum;
+    boolean?: FilterBooleansEnum;
+    type?: FilterTypesEnum;
     group?: IWhereParameter<T>;
 }
 
@@ -90,8 +90,8 @@ interface IXlsxExportSettings {
 interface IExportParameters<T> {
     file_name?: string;
     type?: FileExportTypesEnum;
-    csv_settings: ICsvExportSettings;
-    xlsx_settings: IXlsxExportSettings;
+    csv_settings?: ICsvExportSettings;
+    xlsx_settings?: IXlsxExportSettings;
     fields: IExportField<T>[];
 }
 
@@ -109,9 +109,9 @@ interface IJoinParameter<T> {
 }
 
 interface IOrderParameter<T> {
-    column: keyof T;
-    direction: OrderDirectionsEnum;
-    null_position: OrderNullPositionsEnum;
+    column?: keyof T;
+    direction?: OrderDirectionsEnum;
+    null_position?: OrderNullPositionsEnum;
 }
 
 interface IRelationship<T> {

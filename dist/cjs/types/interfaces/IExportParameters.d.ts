@@ -5,8 +5,8 @@ import IXlsxExportSettings from "./IXlsxExportSettings";
 export default interface IExportParameters<T> {
     file_name?: string;
     type?: FileExportTypesEnum;
-    csv_settings: ICsvExportSettings;
-    xlsx_settings: IXlsxExportSettings;
+    csv_settings?: ICsvExportSettings;
+    xlsx_settings?: IXlsxExportSettings;
     fields: IExportField<T>[];
 }
 //# sourceMappingURL=IExportParameters.d.ts.map
