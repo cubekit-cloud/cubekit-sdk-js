@@ -7,10 +7,10 @@ import {
 
 export default interface IWhereParameter<T> {
 	column: keyof T;
-	operator: OperatorsEnum;
+	operator?: OperatorsEnum;
 	value: string;
-	value_type: FilterValueTypesEnum;
-	boolean: FilterBooleansEnum;
-	type: FilterTypesEnum;
+	value_type?: FilterValueTypesEnum;
+	boolean?: FilterBooleansEnum;
+	type?: FilterTypesEnum;
 	group?: IWhereParameter<T>;
 }
