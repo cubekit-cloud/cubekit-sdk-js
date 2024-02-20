@@ -28,7 +28,7 @@ export declare enum JoinTypesEnum {
 }
 export declare enum OrderDirectionsEnum {
     ASC = "asc",
-    DESC = "DESC"
+    DESC = "desc"
 }
 export declare enum OrderNullPositionsEnum {
     FIRST = "first",

@@ -30,7 +30,7 @@ declare enum JoinTypesEnum {
 }
 declare enum OrderDirectionsEnum {
     ASC = "asc",
-    DESC = "DESC"
+    DESC = "desc"
 }
 declare enum OrderNullPositionsEnum {
     FIRST = "first",

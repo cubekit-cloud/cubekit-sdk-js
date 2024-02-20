@@ -33,7 +33,7 @@ export enum JoinTypesEnum {
 
 export enum OrderDirectionsEnum {
     ASC = 'asc',
-    DESC = 'DESC',
+    DESC = 'desc',
 }
 
 export enum OrderNullPositionsEnum {
