@@ -149,6 +149,7 @@ interface IData<T> {
 interface ICreateOptions<T> {
     select?: Array<keyof T>;
     debug?: boolean;
+    relationships?: IRelationships<any>;
     data: IData<T>;
 }
 
@@ -160,6 +161,7 @@ interface IDeleteOptions {
 interface IGetByIdOptions<T> {
     id: string;
     select?: Array<keyof T>;
+    relationships?: IRelationships<any>;
     debug?: boolean;
 }
 
@@ -168,6 +170,7 @@ interface IUpdateOptions<T> {
     select?: Array<keyof T>;
     debug?: boolean;
     data: IData<T>;
+    relationships?: IRelationships<any>;
 }
 
 interface IRequestParameter<T> {
