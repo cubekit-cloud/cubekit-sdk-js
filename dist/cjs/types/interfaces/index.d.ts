@@ -14,8 +14,9 @@ import IGetByIdOptions from './IGetByIdOptions';
 import ICreateOptions from './ICreateOptions';
 import IUpdateOptions from './IUpdateOptions';
 import IDeleteOptions from './IDeleteOptions';
+import IRelationships from './IRelationships';
 import IRelationship from './IRelationship';
 import IResponse from './response/IResponse';
 import IResponseMeta from './response/IResponseMeta';
-export type { IClientConfig, IRequestParams, ISearchOptions, IPaginations, IWhereParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IGetByIdOptions, ICreateOptions, IUpdateOptions, IDeleteOptions, IResponse, IResponseMeta, IRelationship, };
+export type { IClientConfig, IRequestParams, ISearchOptions, IPaginations, IWhereParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IGetByIdOptions, ICreateOptions, IUpdateOptions, IDeleteOptions, IResponse, IResponseMeta, IRelationship, IRelationships, };
 //# sourceMappingURL=index.d.ts.map
