@@ -120,6 +120,10 @@ interface IRelationship<T> {
     order?: IOrderParameter<T>[];
 }
 
+interface IRelationships<T> {
+    [key: string]: IRelationship<T>;
+}
+
 interface ISearchOptions<T> {
     pagination?: IPaginations;
     select?: Array<keyof T | '*'>;
@@ -130,9 +134,7 @@ interface ISearchOptions<T> {
     return?: ResponseTypeEnum;
     export?: IExportParameters<T>;
     debug?: boolean;
-    relationships?: {
-        [key: string]: IRelationship<any>;
-    };
+    relationships?: IRelationships<any>;
 }
 
 interface IClientConfig {

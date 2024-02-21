@@ -4,7 +4,7 @@ import IWhereParameter from "./IWhereParameter";
 import IJoinParameter from "./IJoinParameter";
 import IOrderParameter from "./IOrderParameter";
 import IPaginations from "./IPaginations";
-import IRelationship from "./IRelationship";
+import IRelationships from "./IRelationships";
 export default interface ISearchOptions<T> {
     pagination?: IPaginations;
     select?: Array<keyof T | '*'>;
@@ -15,8 +15,6 @@ export default interface ISearchOptions<T> {
     return?: ResponseTypeEnum;
     export?: IExportParameters<T>;
     debug?: boolean;
-    relationships?: {
-        [key: string]: IRelationship<any>;
-    };
+    relationships?: IRelationships<any>;
 }
 //# sourceMappingURL=ISearchOptions.d.ts.map
