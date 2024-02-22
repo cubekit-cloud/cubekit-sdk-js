@@ -153,8 +153,8 @@ interface IDataRelationships {
 }
 
 interface IData<T> {
-    fields: T;
-    relationships: {
+    fields?: T;
+    relationships?: {
         [key: string]: IDataRelationships;
     };
 }
