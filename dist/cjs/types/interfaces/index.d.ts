@@ -16,8 +16,9 @@ import IUpdateOptions from './IUpdateOptions';
 import IDeleteOptions from './IDeleteOptions';
 import IRelationships from './IRelationships';
 import IRelationship from './IRelationship';
+import IData from './IData';
 import IDataRelationships from './IDataRelationships';
 import IResponse from './response/IResponse';
 import IResponseMeta from './response/IResponseMeta';
-export type { IClientConfig, IRequestParams, ISearchOptions, IPaginations, IWhereParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IGetByIdOptions, ICreateOptions, IUpdateOptions, IDeleteOptions, IResponse, IResponseMeta, IRelationship, IRelationships, IDataRelationships, };
+export type { IClientConfig, IRequestParams, ISearchOptions, IPaginations, IWhereParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IGetByIdOptions, ICreateOptions, IUpdateOptions, IDeleteOptions, IResponse, IResponseMeta, IRelationship, IRelationships, IDataRelationships, IData, };
 //# sourceMappingURL=index.d.ts.map

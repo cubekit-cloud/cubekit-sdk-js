@@ -16,6 +16,7 @@ import IUpdateOptions from './IUpdateOptions';
 import IDeleteOptions from './IDeleteOptions';
 import IRelationships from './IRelationships';
 import IRelationship from './IRelationship';
+import IData from './IData';
 import IDataRelationships from './IDataRelationships';
 import IResponse from './response/IResponse';
 import IResponseMeta from './response/IResponseMeta';
@@ -42,4 +43,5 @@ export type {
 	IRelationship,
 	IRelationships,
 	IDataRelationships,
+	IData,
 };
