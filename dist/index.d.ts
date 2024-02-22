@@ -1,5 +1,10 @@
 import * as axios from 'axios';
 
+declare enum RelationsModesEnum {
+    SYNC = "sync",
+    ATTACH = "attach",
+    DETACH = "detach"
+}
 declare enum OperatorsEnum {
     EQUAL = "=",
     INEQUAL = "!=",
@@ -142,8 +147,16 @@ interface IClientConfig {
     serviceKey: string;
 }
 
+interface IDataRelationships {
+    mode?: RelationsModesEnum;
+    ids: string[];
+}
+
 interface IData<T> {
     fields: T;
+    relationships: {
+        [key: string]: IDataRelationships;
+    };
 }
 
 interface ICreateOptions<T> {
@@ -242,4 +255,4 @@ declare class CubekitOrmClient {
 
 //# sourceMappingURL=index.d.ts.map
 
-export { ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IClientConfig, ICreateOptions, ICsvExportSettings, IDeleteOptions, IExportField, IExportParameters, IGetByIdOptions, IJoinOnParameter, IJoinParameter, IOrderParameter, IPaginations, IRelationship, IRelationships, IRequestParameter as IRequestParams, IResponse, IResponseMeta, ISearchOptions, IUpdateOptions, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RequestMethodsEnum, ResponseTypeEnum, CubekitOrmClient as default };
+export { ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IClientConfig, ICreateOptions, ICsvExportSettings, IDataRelationships, IDeleteOptions, IExportField, IExportParameters, IGetByIdOptions, IJoinOnParameter, IJoinParameter, IOrderParameter, IPaginations, IRelationship, IRelationships, IRequestParameter as IRequestParams, IResponse, IResponseMeta, ISearchOptions, IUpdateOptions, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestMethodsEnum, ResponseTypeEnum, CubekitOrmClient as default };

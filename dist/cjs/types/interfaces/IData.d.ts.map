@@ -1,1 +1,1 @@
-{"version":3,"file":"IData.d.ts","sourceRoot":"","sources":["../../src/interfaces/IData.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,KAAK,CAAC,CAAC;IAC5B,MAAM,EAAE,CAAC,CAAC;CACb"}
+{"version":3,"file":"IData.d.ts","sourceRoot":"","sources":["../../src/interfaces/IData.ts"],"names":[],"mappings":"AAAA,OAAO,kBAAkB,MAAM,sBAAsB,CAAC;AAEtD,MAAM,CAAC,OAAO,WAAW,KAAK,CAAC,CAAC;IAC/B,MAAM,EAAE,CAAC,CAAC;IACV,aAAa,EAAE;QACd,CAAC,GAAG,EAAE,MAAM,GAAG,kBAAkB,CAAC;KAClC,CAAC;CACF"}

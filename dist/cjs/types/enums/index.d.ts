@@ -1,3 +1,8 @@
+export declare enum RelationsModesEnum {
+    SYNC = "sync",
+    ATTACH = "attach",
+    DETACH = "detach"
+}
 export declare enum OperatorsEnum {
     EQUAL = "=",
     INEQUAL = "!=",
