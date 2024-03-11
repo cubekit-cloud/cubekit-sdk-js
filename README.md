@@ -6,6 +6,7 @@
 - [Initialization](#initialization)
 - [Methods](#methods)
   - [setConfig](#setConfig)
+  - [setAuthorizationHeader](#setAuthorizationHeader)
   - [send](#send)
 
 ## Quick start
@@ -45,6 +46,22 @@ Set new configuration
 #### Example
 ```JS
 const config: IClientConfig = { baseUrl: '/'; serviceKey: 'xxxx-xxxx-xxxx-xxxx';}client.setConfig(config);
+```
+* * *
+### setAuthorizationHeader
+
+Set authorization header
+
+
+#### Params
+- `value`
+  - Type: `string`
+  - Description: a string with auth data
+
+
+#### Example
+```JS
+client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
 ```
 * * *
 ### send
