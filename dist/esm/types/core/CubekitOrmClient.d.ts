@@ -18,6 +18,15 @@ declare class CubekitOrmClient {
      */
     setConfig(config: IClientConfig): void;
     /**
+     * Set authorization header
+     * @function setAuthorizationHeader
+     * @param {string} value - a string with auth data
+     * @example
+     *
+     *client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+     */
+    setAuthorizationHeader(value: string): void;
+    /**
      * Send request to API cubkit.com with params.
      * @function send
      * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.

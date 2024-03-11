@@ -43,6 +43,18 @@ class CubekitOrmClient {
 	};
 
 	/**
+	 * Set authorization header
+	 * @function setAuthorizationHeader
+	 * @param {string} value - a string with auth data
+	 * @example
+	 *
+	 *client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+	 */
+	public setAuthorizationHeader(value: string) {
+		this.axios.defaults.headers['Authorization'] = value;
+	};
+
+	/**
 	 * Send request to API cubkit.com with params.
 	 * @function send
 	 * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
