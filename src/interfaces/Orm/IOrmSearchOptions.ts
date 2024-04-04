@@ -1,4 +1,4 @@
-import { ResponseTypeEnum } from "../enums";
+import { ResponseTypeEnum } from "../../enums";
 import IExportParameters from "./IExportParameters";
 import IWhereParameter from "./IWhereParameter";
 import IJoinParameter from "./IJoinParameter";
@@ -6,7 +6,7 @@ import IOrderParameter from "./IOrderParameter";
 import IPaginations from "./IPaginations";
 import IRelationships from "./IRelationships";
 
-export default interface ISearchOptions<T> {
+export default interface IOrmSearchOptions<T> {
     pagination?: IPaginations;
     select?: Array<keyof T | '*'>;
     where?: IWhereParameter<T>[];

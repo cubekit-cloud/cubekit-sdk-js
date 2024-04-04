@@ -62,7 +62,7 @@ export enum ExportEncodingTypesEnum {
     WINDOWS_1251 = 'windows-1251',
 }
 
-export enum RequestMethodsEnum {
+export enum RequestOrmMethodsEnum {
     SEARCH = 'search',
     GET_BY_ID = 'get_by_id',
     CREATE = 'create',

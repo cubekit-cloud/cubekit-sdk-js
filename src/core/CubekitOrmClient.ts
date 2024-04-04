@@ -1,21 +1,21 @@
 import axios, { AxiosInstance } from 'axios';
-import IClientConfig from '../interfaces/IClientConfig';
-import IRequestParameter from '../interfaces/IRequestParameter';
+import IOrmClientConfig from '../interfaces/Orm/IOrmClientConfig';
+import IOrmRequestParameter from '../interfaces/Orm/IOrmRequestParameter';
 import {
 	IResponse,
-	IGetByIdOptions,
-	ISearchOptions,
-	IUpdateOptions,
-	IDeleteOptions,
-} from '../interfaces';
-import { RequestMethodsEnum } from '../enums';
+	IOrmGetByIdOptions,
+	IOrmSearchOptions,
+	IOrmUpdateOptions,
+	IOrmDeleteOptions,
+} from '../interfaces/Orm';
+import { RequestOrmMethodsEnum } from '../enums';
 
 const ID_SPOT = '{key}';
 
 class CubekitOrmClient {
 	private axios: AxiosInstance;
 
-	constructor(config: IClientConfig) {
+	constructor(config: IOrmClientConfig) {
 		this.axios = axios.create({
 			baseURL: config.baseUrl,
 			withCredentials: true,
@@ -28,16 +28,16 @@ class CubekitOrmClient {
 	/**
 	 * Set new configuration
 	 * @function setConfig
-	 * @param {IClientConfig} config - an object with new configuration
+	 * @param {IOrmClientConfig} config - an object with new configuration
 	 * @example
-	 *const config: IClientConfig = {
+	 *const config: IOrmClientConfig = {
 	 *  baseUrl: '/';
 	 *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
 	 *}
 	 *
 	 *client.setConfig(config);
 	 */
-	public setConfig(config: IClientConfig) {
+	public setConfig(config: IOrmClientConfig) {
 		this.axios.defaults.baseURL = config.baseUrl;
 		this.axios.defaults.headers['x-api-key'] = config.serviceKey;
 	};
@@ -57,9 +57,9 @@ class CubekitOrmClient {
 	/**
 	 * Send request to API cubkit.com with params.
 	 * @function send
-	 * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
+	 * @param {IOrmRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
 	 * @param {string} params.path Path to a exactly model in your application. It can be got from documentation on main page of your application.
-	 * @param {RequestMethodsEnum} params.method Request type.
+	 * @param {RequestOrmMethodsEnum} params.method Request type.
 	 * @param {ISearchOptions<T> | IGetByIdOptions<T> | ICreateOptions<T> | IUpdateOptions<T> | IDeleteOptions} params.options Data to be sent.
 	 * @return {Promise<AxiosResponse<IResponse<T2>, any>>}
 	 * @example
@@ -74,15 +74,15 @@ class CubekitOrmClient {
 	 *client.send<A, B>({
 	 *}).then((response) => {...}) //response.data.data will be string | B | B[]
 	 */
-	public send<T1, T2 = T1>(params: IRequestParameter<T1>) {
+	public send<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
 		switch (params.method) {
-			case RequestMethodsEnum.GET_BY_ID:
+			case RequestOrmMethodsEnum.GET_BY_ID:
 				return this.getById<T1, T2>(params);
-			case RequestMethodsEnum.CREATE:
+			case RequestOrmMethodsEnum.CREATE:
 				return this.create<T1, T2>(params);
-			case RequestMethodsEnum.UPDATE:
+			case RequestOrmMethodsEnum.UPDATE:
 				return this.update<T1, T2>(params);
-			case RequestMethodsEnum.DELETE:
+			case RequestOrmMethodsEnum.DELETE:
 				return this.delete<T1, T2>(params);
 			default:
 				return this.search<T1, T2>(params);
@@ -101,9 +101,9 @@ class CubekitOrmClient {
 		return path;
 	}
 
-	private search<T1, T2 = T1>(params: IRequestParameter<T1>) {
+	private search<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
 		let url = params.path;
-		const options = params.options as ISearchOptions<T1>;
+		const options = params.options as IOrmSearchOptions<T1>;
 		if (options.pagination) {
 			url += '?';
 			if (options.pagination.limit) {
@@ -117,25 +117,25 @@ class CubekitOrmClient {
 		return this.axios.post<IResponse<T2>>(url, options);
 	}
 
-	private getById<T1, T2 = T1>(params: IRequestParameter<T1>) {
-		const options = params.options as IGetByIdOptions<T1>;
+	private getById<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
+		const options = params.options as IOrmGetByIdOptions<T1>;
 		return this.axios.post<IResponse<T2>>(this.preparePathWithId(params.path, options.id), options);
 	}
 
-	private create<T1, T2 = T1>(params: IRequestParameter<T1>) {
+	private create<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
 		return this.axios.post<IResponse<T2>>(params.path, params.options);
 	}
 
-	private update<T1, T2 = T1>(params: IRequestParameter<T1>) {
-		const options = params.options as IUpdateOptions<T1>;
+	private update<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
+		const options = params.options as IOrmUpdateOptions<T1>;
 		return this.axios.put<IResponse<T2>>(
 			this.preparePathWithId(params.path, options.id),
 			params.options
 		);
 	}
 
-	private delete<T1, T2 = T1>(params: IRequestParameter<T1>) {
-		const options = params.options as IDeleteOptions;
+	private delete<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
+		const options = params.options as IOrmDeleteOptions;
 		return this.axios.delete<IResponse<T2>>(this.preparePathWithId(params.path, options.id), {
 			data: params.options,
 		});

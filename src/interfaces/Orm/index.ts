@@ -1,8 +1,8 @@
 import IWhereParameter from './IWhereParameter';
 import IPaginations from './IPaginations';
-import ISearchOptions from './ISearchOptions';
-import IClientConfig from './IClientConfig';
-import IRequestParams from './IRequestParameter';
+import IOrmSearchOptions from './IOrmSearchOptions';
+import IOrmClientConfig from './IOrmClientConfig';
+import IRequestParams from './IOrmRequestParameter';
 import IJoinParameter from './IJoinParameter';
 import IJoinOnParameter from './IJoinOnParameter';
 import IOrderParameter from './IOrderParameter';
@@ -10,10 +10,10 @@ import IExportParameters from './IExportParameters';
 import ICsvExportSettings from './ICsvExportSettings';
 import IXlsxExportSettings from './IXlsxExportSettings';
 import IExportField from './IExportField';
-import IGetByIdOptions from './IGetByIdOptions';
-import ICreateOptions from './ICreateOptions';
-import IUpdateOptions from './IUpdateOptions';
-import IDeleteOptions from './IDeleteOptions';
+import IOrmGetByIdOptions from './IOrmGetByIdOptions';
+import IOrmCreateOptions from './IOrmCreateOptions';
+import IOrmUpdateOptions from './IOrmUpdateOptions';
+import IOrmDeleteOptions from './IOrmDeleteOptions';
 import IRelationships from './IRelationships';
 import IRelationship from './IRelationship';
 import IData from './IData';
@@ -22,9 +22,9 @@ import IResponse from './response/IResponse';
 import IResponseMeta from './response/IResponseMeta';
 
 export type {
-	IClientConfig,
+	IOrmClientConfig,
 	IRequestParams,
-	ISearchOptions,
+	IOrmSearchOptions,
 	IPaginations,
 	IWhereParameter,
 	IJoinParameter,
@@ -34,10 +34,10 @@ export type {
 	ICsvExportSettings,
 	IXlsxExportSettings,
 	IExportField,
-	IGetByIdOptions,
-	ICreateOptions,
-	IUpdateOptions,
-	IDeleteOptions,
+	IOrmGetByIdOptions,
+	IOrmCreateOptions,
+	IOrmUpdateOptions,
+	IOrmDeleteOptions,
 	IResponse,
 	IResponseMeta,
 	IRelationship,

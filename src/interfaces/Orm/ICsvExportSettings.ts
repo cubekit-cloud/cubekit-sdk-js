@@ -1,4 +1,4 @@
-import { ExportEncodingTypesEnum } from "../enums";
+import { ExportEncodingTypesEnum } from "../../enums";
 
 
 export default interface ICsvExportSettings {

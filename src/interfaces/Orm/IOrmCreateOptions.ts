@@ -1,10 +1,9 @@
 import IData from "./IData";
 import IRelationships from "./IRelationships";
 
-export default interface IUpdateOptions<T> {
-    id: string;
+export default interface IOrmCreateOptions<T> {
     select?: Array<keyof T>;
     debug?: boolean;
-    data: IData<T>;
     relationships?: IRelationships<any>;
+    data: IData<T>;
 }

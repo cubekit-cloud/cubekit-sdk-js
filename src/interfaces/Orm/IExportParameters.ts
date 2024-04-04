@@ -1,4 +1,4 @@
-import { FileExportTypesEnum } from "../enums";
+import { FileExportTypesEnum } from "../../enums";
 import ICsvExportSettings from "./ICsvExportSettings";
 import IExportField from "./IExportField";
 import IXlsxExportSettings from "./IXlsxExportSettings";

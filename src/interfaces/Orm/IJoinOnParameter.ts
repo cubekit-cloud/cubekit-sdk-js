@@ -1,4 +1,4 @@
-import { OperatorsEnum } from "../enums";
+import { OperatorsEnum } from "../../enums";
 
 export default interface IJoinOnParameter {
     left?: string;

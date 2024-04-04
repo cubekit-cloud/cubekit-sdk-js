@@ -1,4 +1,4 @@
-import { JoinTypesEnum } from "../enums";
+import { JoinTypesEnum } from "../../enums";
 import IWhereParameter from "./IWhereParameter";
 import IJoinOnParameter from "./IJoinOnParameter";
 

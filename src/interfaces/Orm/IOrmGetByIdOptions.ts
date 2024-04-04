@@ -1,6 +1,6 @@
 import IRelationships from "./IRelationships";
 
-export default interface IGetByIdOptions<T> {
+export default interface IOrmGetByIdOptions<T> {
     id: string;
     select?: Array<keyof T>;
     relationships?: IRelationships<any>;

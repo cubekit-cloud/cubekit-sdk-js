@@ -1,5 +1,7 @@
-export * from './interfaces';
+export * from './interfaces/Orm';
+export * from './interfaces/Storage';
 export * from './enums';
 import CubekitOrmClient from './core/CubekitOrmClient';
+import CubekitStorageClient from './core/CubekitStorageClient';
 
-export default CubekitOrmClient;
+export { CubekitOrmClient, CubekitStorageClient };

@@ -1,4 +1,4 @@
-import { OrderDirectionsEnum, OrderNullPositionsEnum } from "../enums";
+import { OrderDirectionsEnum, OrderNullPositionsEnum } from "../../enums";
 
 export default interface IOrderParameter<T> {
     column?: keyof T;

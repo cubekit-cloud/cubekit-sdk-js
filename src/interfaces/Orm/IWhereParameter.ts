@@ -3,7 +3,7 @@ import {
 	OperatorsEnum,
 	FilterTypesEnum,
 	FilterValueTypesEnum,
-} from '../enums';
+} from '../../enums';
 
 export default interface IWhereParameter<T> {
 	column: keyof T;
