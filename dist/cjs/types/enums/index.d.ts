@@ -51,7 +51,7 @@ export declare enum ExportEncodingTypesEnum {
     UTF_8 = "utf-8",
     WINDOWS_1251 = "windows-1251"
 }
-export declare enum RequestMethodsEnum {
+export declare enum RequestOrmMethodsEnum {
     SEARCH = "search",
     GET_BY_ID = "get_by_id",
     CREATE = "create",

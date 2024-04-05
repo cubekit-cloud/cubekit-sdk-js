@@ -1,0 +1,1 @@
+{"version":3,"file":"IDataRelationships.d.ts","sourceRoot":"","sources":["../../../src/interfaces/Orm/IDataRelationships.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,kBAAkB,EAAE,MAAM,aAAa,CAAC;AAEjD,MAAM,CAAC,OAAO,WAAW,kBAAkB;IACvC,IAAI,CAAC,EAAE,kBAAkB,CAAC;IAC1B,GAAG,EAAE,MAAM,EAAE,CAAC;CACjB"}

@@ -53,7 +53,7 @@ declare enum ExportEncodingTypesEnum {
     UTF_8 = "utf-8",
     WINDOWS_1251 = "windows-1251"
 }
-declare enum RequestMethodsEnum {
+declare enum RequestOrmMethodsEnum {
     SEARCH = "search",
     GET_BY_ID = "get_by_id",
     CREATE = "create",
@@ -129,7 +129,7 @@ interface IRelationships<T> {
     [key: string]: IRelationship<T>;
 }
 
-interface ISearchOptions<T> {
+interface IOrmSearchOptions<T> {
     pagination?: IPaginations;
     select?: Array<keyof T | '*'>;
     where?: IWhereParameter<T>[];
@@ -142,7 +142,7 @@ interface ISearchOptions<T> {
     relationships?: IRelationships<any>;
 }
 
-interface IClientConfig {
+interface IOrmClientConfig {
     baseUrl: string;
     serviceKey: string;
 }
@@ -159,26 +159,26 @@ interface IData<T> {
     };
 }
 
-interface ICreateOptions<T> {
+interface IOrmCreateOptions<T> {
     select?: Array<keyof T>;
     debug?: boolean;
     relationships?: IRelationships<any>;
     data: IData<T>;
 }
 
-interface IDeleteOptions {
+interface IOrmDeleteOptions {
     id: string;
     debug?: boolean;
 }
 
-interface IGetByIdOptions<T> {
+interface IOrmGetByIdOptions<T> {
     id: string;
     select?: Array<keyof T>;
     relationships?: IRelationships<any>;
     debug?: boolean;
 }
 
-interface IUpdateOptions<T> {
+interface IOrmUpdateOptions<T> {
     id: string;
     select?: Array<keyof T>;
     debug?: boolean;
@@ -186,10 +186,10 @@ interface IUpdateOptions<T> {
     relationships?: IRelationships<any>;
 }
 
-interface IRequestParameter<T> {
+interface IOrmRequestParameter<T> {
     path: string;
-    method: RequestMethodsEnum;
-    options: ISearchOptions<T> | IGetByIdOptions<T> | ICreateOptions<T> | IUpdateOptions<T> | IDeleteOptions;
+    method: RequestOrmMethodsEnum;
+    options: IOrmSearchOptions<T> | IOrmGetByIdOptions<T> | IOrmCreateOptions<T> | IOrmUpdateOptions<T> | IOrmDeleteOptions;
 }
 
 interface IResponseMeta {
@@ -207,37 +207,58 @@ interface IResponse<T> {
     data: string | T | T[];
 }
 
+interface IStorageClientConfig {
+    baseUrl: string;
+    serviceKey: string;
+    storageId: string;
+}
+
+/**
+ * @class
+ * ```ts
+    // CubekitOrmClient is needed for working with auto generated ORM API
+    import { IOrmClientConfig, CubekitOrmClient } from '@cubekit-cloud/cubekit-sdk-js';
+    // You can get your configuration from your application page.
+    const config: IOrmClientConfig = {
+        baseUrl: 'url';
+        serviceKey: 'key';
+    };
+    const ormClient = new CubekitOrmClient(config);
+    ormClient.send({...});
+* ```
+*/
 declare class CubekitOrmClient {
     private axios;
-    constructor(config: IClientConfig);
+    constructor(config: IOrmClientConfig);
     /**
      * Set new configuration
      * @function setConfig
-     * @param {IClientConfig} config - an object with new configuration
+     * @method CubekitOrmClient~setConfig
+     * @param {IOrmClientConfig} config - an object with new configuration
      * @example
-     *const config: IClientConfig = {
+     *const config: IOrmClientConfig = {
      *  baseUrl: '/';
      *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
      *}
      *
-     *client.setConfig(config);
+     *ormClient.setConfig(config);
      */
-    setConfig(config: IClientConfig): void;
+    setConfig(config: IOrmClientConfig): void;
     /**
      * Set authorization header
-     * @function setAuthorizationHeader
+     * @method CubekitOrmClient~setAuthorizationHeader
      * @param {string} value - a string with auth data
      * @example
      *
-     *client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+     *ormClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
      */
     setAuthorizationHeader(value: string): void;
     /**
      * Send request to API cubkit.com with params.
-     * @function send
-     * @param {IRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
+     * @method CubekitOrmClient~send
+     * @param {IOrmRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
      * @param {string} params.path Path to a exactly model in your application. It can be got from documentation on main page of your application.
-     * @param {RequestMethodsEnum} params.method Request type.
+     * @param {RequestOrmMethodsEnum} params.method Request type.
      * @param {ISearchOptions<T> | IGetByIdOptions<T> | ICreateOptions<T> | IUpdateOptions<T> | IDeleteOptions} params.options Data to be sent.
      * @return {Promise<AxiosResponse<IResponse<T2>, any>>}
      * @example
@@ -247,12 +268,12 @@ declare class CubekitOrmClient {
      *interface B extends A {
      *	name: string;
      *}
-     *client.send<A, A>({
-     *}).then((response) => {...}) //response.data.data will be string | A | A[]
-     *client.send<A, B>({
-     *}).then((response) => {...}) //response.data.data will be string | B | B[]
+     *ormClient.send<A, A>({
+     *}).then((response) => {...}) //response.data.data can be able to string | A | A[]
+     *ormClient.send<A, B>({
+     *}).then((response) => {...}) //response.data.data can be able to string | B | B[]
      */
-    send<T1, T2 = T1>(params: IRequestParameter<T1>): Promise<axios.AxiosResponse<IResponse<T2>, any>>;
+    send<T1, T2 = T1>(params: IOrmRequestParameter<T1>): Promise<axios.AxiosResponse<IResponse<T2>, any>>;
     private preparePathWithId;
     private search;
     private getById;
@@ -262,6 +283,49 @@ declare class CubekitOrmClient {
 }
 //# sourceMappingURL=CubekitOrmClient.d.ts.map
 
-//# sourceMappingURL=index.d.ts.map
+/**
+ * @class
+ * ```ts
+    // CubekitStorageClient is needed for working with auto generated Storage API
+    import { IStorageClientConfig, CubekitStorageClient } from '@cubekit-cloud/cubekit-sdk-js';
+    // You can get your configuration from your application page.
+    const config: IStorageClientConfig = {
+        baseUrl: 'url';
+        serviceKey: 'key';
+        storageId: 'id';
+    };
+    const storageClient = new CubekitStorageClient(config);
+    storageClient.upload({...});
+* ```
+*/
+declare class CubekitStorageClient {
+    private axios;
+    private storageId;
+    constructor(config: IStorageClientConfig);
+    /**
+     * Set new configuration
+     * @method CubekitStorageClient~setConfig
+     * @param {IStorageClientConfig} config - an object with new configuration
+     * @example
+     *const config: IStorageClientConfig = {
+     *  baseUrl: '/';
+     *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
+     *  storageId: 'xxxx-xxxx-xxxx-xxxx';
+     *}
+     *
+     *storageClient.setConfig(config);
+     */
+    setConfig(config: IStorageClientConfig): void;
+    /**
+     * Set authorization header
+     * @method CubekitStorageClient~setAuthorizationHeader
+     * @param {string} value - a string with auth data
+     * @example
+     *
+     *storageClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+     */
+    setAuthorizationHeader(value: string): void;
+}
+//# sourceMappingURL=CubekitStorageClient.d.ts.map
 
-export { ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IClientConfig, ICreateOptions, ICsvExportSettings, IData, IDataRelationships, IDeleteOptions, IExportField, IExportParameters, IGetByIdOptions, IJoinOnParameter, IJoinParameter, IOrderParameter, IPaginations, IRelationship, IRelationships, IRequestParameter as IRequestParams, IResponse, IResponseMeta, ISearchOptions, IUpdateOptions, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestMethodsEnum, ResponseTypeEnum, CubekitOrmClient as default };
+export { CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IJoinOnParameter, IJoinParameter, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, IStorageClientConfig, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };
