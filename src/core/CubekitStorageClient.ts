@@ -1,8 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { IStorageClientConfig } from '../interfaces/Storage';
 
-const ID_SPOT = '{key}';
-
 class CubekitStorageClient {
 	private axios: AxiosInstance;
 	private storageId: string | null = null;
@@ -29,7 +27,7 @@ class CubekitStorageClient {
 	 *  storageId: 'xxxx-xxxx-xxxx-xxxx';
 	 *}
 	 *
-	 *client.setConfig(config);
+	 *storageClient.setConfig(config);
 	 */
 	public setConfig(config: IStorageClientConfig) {
 		this.storageId = config.storageId;
@@ -43,18 +41,11 @@ class CubekitStorageClient {
 	 * @param {string} value - a string with auth data
 	 * @example
 	 *
-	 *client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+	 *storageClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
 	 */
 	public setAuthorizationHeader(value: string) {
 		this.axios.defaults.headers['Authorization'] = value;
 	};
-
-	public upload(folderPath: string, fileName: string) {
-		const options = params.options as IDeleteOptions;
-		return this.axios.delete<IResponse<T2>>(this.preparePathWithId(params.path, options.id), {
-			data: params.options,
-		});
-	}
 }
 
 export default CubekitStorageClient;

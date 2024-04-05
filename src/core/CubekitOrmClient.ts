@@ -35,7 +35,7 @@ class CubekitOrmClient {
 	 *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
 	 *}
 	 *
-	 *client.setConfig(config);
+	 *ormClient.setConfig(config);
 	 */
 	public setConfig(config: IOrmClientConfig) {
 		this.axios.defaults.baseURL = config.baseUrl;
@@ -48,7 +48,7 @@ class CubekitOrmClient {
 	 * @param {string} value - a string with auth data
 	 * @example
 	 *
-	 *client.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
+	 *ormClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
 	 */
 	public setAuthorizationHeader(value: string) {
 		this.axios.defaults.headers['Authorization'] = value;
@@ -69,9 +69,9 @@ class CubekitOrmClient {
 	 *interface B extends A {
 	 *	name: string;
 	 *}
-	 *client.send<A, A>({
+	 *ormClient.send<A, A>({
 	 *}).then((response) => {...}) //response.data.data will be string | A | A[]
-	 *client.send<A, B>({
+	 *ormClient.send<A, B>({
 	 *}).then((response) => {...}) //response.data.data will be string | B | B[]
 	 */
 	public send<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
