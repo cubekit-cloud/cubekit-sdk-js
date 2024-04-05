@@ -8,7 +8,7 @@
   "prepublish": "npm run build",
   "scripts": {
     "build": "rollup -c --bundleConfigAsCjs",
-    "docs": "jsdoc2md -c ./jsdoc2md.json -t ./README.hbs ./src/core/CubekitOrmClient.ts > ./README.md",
+    "docs": "jsdoc2md -c ./jsdoc2md.json -t ./README.hbs ./src/core/*.ts > ./README.md",
     "test": "jest"
   },
   "repository": {

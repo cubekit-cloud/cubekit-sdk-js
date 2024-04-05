@@ -1,6 +1,21 @@
 import axios, { AxiosInstance } from 'axios';
 import { IStorageClientConfig } from '../interfaces/Storage';
 
+/**
+ * @class
+ * ```ts
+	// CubekitStorageClient is needed for working with auto generated Storage API
+	import { IStorageClientConfig, CubekitStorageClient } from '@cubekit-cloud/cubekit-sdk-js';
+	// You can get your configuration from your application page.
+	const config: IStorageClientConfig = {
+		baseUrl: 'url';
+		serviceKey: 'key';
+		storageId: 'id';
+	};
+	const storageClient = new CubekitStorageClient(config);
+	storageClient.upload({...});
+* ```
+*/
 class CubekitStorageClient {
 	private axios: AxiosInstance;
 	private storageId: string | null = null;
@@ -18,7 +33,7 @@ class CubekitStorageClient {
 
 	/**
 	 * Set new configuration
-	 * @function setConfig
+	 * @method CubekitStorageClient~setConfig
 	 * @param {IStorageClientConfig} config - an object with new configuration
 	 * @example
 	 *const config: IStorageClientConfig = {
@@ -37,7 +52,7 @@ class CubekitStorageClient {
 
 	/**
 	 * Set authorization header
-	 * @function setAuthorizationHeader
+	 * @method CubekitStorageClient~setAuthorizationHeader
 	 * @param {string} value - a string with auth data
 	 * @example
 	 *

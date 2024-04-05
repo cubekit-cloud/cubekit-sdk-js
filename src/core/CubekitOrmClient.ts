@@ -12,6 +12,20 @@ import { RequestOrmMethodsEnum } from '../enums';
 
 const ID_SPOT = '{key}';
 
+/**
+ * @class
+ * ```ts
+	// CubekitOrmClient is needed for working with auto generated ORM API
+	import { IOrmClientConfig, CubekitOrmClient } from '@cubekit-cloud/cubekit-sdk-js';
+	// You can get your configuration from your application page.
+	const config: IOrmClientConfig = {
+		baseUrl: 'url';
+		serviceKey: 'key';
+	};
+	const ormClient = new CubekitOrmClient(config);
+	ormClient.send({...});
+* ```
+*/
 class CubekitOrmClient {
 	private axios: AxiosInstance;
 
@@ -28,6 +42,7 @@ class CubekitOrmClient {
 	/**
 	 * Set new configuration
 	 * @function setConfig
+	 * @method CubekitOrmClient~setConfig
 	 * @param {IOrmClientConfig} config - an object with new configuration
 	 * @example
 	 *const config: IOrmClientConfig = {
@@ -44,7 +59,7 @@ class CubekitOrmClient {
 
 	/**
 	 * Set authorization header
-	 * @function setAuthorizationHeader
+	 * @method CubekitOrmClient~setAuthorizationHeader
 	 * @param {string} value - a string with auth data
 	 * @example
 	 *
@@ -56,7 +71,7 @@ class CubekitOrmClient {
 
 	/**
 	 * Send request to API cubkit.com with params.
-	 * @function send
+	 * @method CubekitOrmClient~send
 	 * @param {IOrmRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
 	 * @param {string} params.path Path to a exactly model in your application. It can be got from documentation on main page of your application.
 	 * @param {RequestOrmMethodsEnum} params.method Request type.
@@ -70,9 +85,9 @@ class CubekitOrmClient {
 	 *	name: string;
 	 *}
 	 *ormClient.send<A, A>({
-	 *}).then((response) => {...}) //response.data.data will be string | A | A[]
+	 *}).then((response) => {...}) //response.data.data can be able to string | A | A[]
 	 *ormClient.send<A, B>({
-	 *}).then((response) => {...}) //response.data.data will be string | B | B[]
+	 *}).then((response) => {...}) //response.data.data can be able to string | B | B[]
 	 */
 	public send<T1, T2 = T1>(params: IOrmRequestParameter<T1>) {
 		switch (params.method) {

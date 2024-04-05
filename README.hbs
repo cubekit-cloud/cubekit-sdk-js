@@ -4,69 +4,10 @@
 ## Table of Contents
 - [Install](#install)
 - [Initialization](#initialization)
-- [Methods](#methods)
-{{#functions}}
+{{#classes}}
   - [{{name}}](#{{name}})
-{{/functions}}
+{{/classes}}
 
-## Quick start
-### Install
-#### npm
-```shell
-npm i @cubekit-cloud/cubekit-sdk-js
-```
-### Initialization
-```ts
-import CubekitOrmClient, { IClientConfig } from '@cubekit-cloud/cubekit-sdk-js';
-
-// You can get your configuration from your application page.
-const config: IClientConfig = {
-	baseUrl: 'url';
-	serviceKey: 'key';
-};
-
-const client = new CubekitOrmClient(config);
-
-client.send({...});
-```
-
-## Methods
-
-{{#functions}}
-### {{name}}
-
-{{#if description}}{{description}}{{/if}}
-
-{{#if lends}}
-#### Lends
-{{#each lends}}
-# {{name}}
-{{/each}}
-{{/if}}
-
-{{#if params}}
-#### Params
-{{#each params}}
-- `{{name}}`
-  {{#if type.names}}- Type: `{{type.names}}`{{/if}}
-  {{#if description}}- Description: {{description}}{{/if}}
-{{/each}}
-{{/if}}
-
-{{#if returns}}
-#### Returns
-{{#each returns}}
-- `{{type.names}}`
-{{/each}}
-{{/if}}
-
-{{#if examples}}
-#### Example
-{{#each examples}}
-```JS
-{{{this}}}
-```
-{{/each}}
-{{/if}}
-* * *
-{{/functions}}
+{{#orphans ~}}
+{{>docs~}}
+{{/orphans~}}
