@@ -1,0 +1,1 @@
+{"version":3,"file":"IGetFolderTreeResponse.d.ts","sourceRoot":"","sources":["../../../src/interfaces/Storage/IGetFolderTreeResponse.ts"],"names":[],"mappings":"AAAA,OAAO,aAAa,MAAM,iBAAiB,CAAC;AAC5C,OAAO,gBAAgB,MAAM,oBAAoB,CAAC;AAElD,MAAM,CAAC,OAAO,WAAW,sBAAuB,SAAQ,gBAAgB;IACvE,IAAI,EAAE,aAAa,EAAE,CAAC;CACtB"}

@@ -1,4 +1,5 @@
 import * as axios from 'axios';
+import { AxiosProgressEvent } from 'axios';
 
 declare enum RelationsModesEnum {
     SYNC = "sync",
@@ -210,7 +211,45 @@ interface IResponse<T> {
 interface IStorageClientConfig {
     baseUrl: string;
     serviceKey: string;
-    storageId: string;
+}
+
+interface IFolderInTree {
+    name: string;
+    children: IFolderInTree[];
+}
+
+interface IStorageFile {
+    bucket_name: string;
+    object_name: string;
+    size: number;
+    url: string;
+}
+
+interface IStorageResponse {
+    code: number;
+    status: string;
+    timestamp: string;
+    message: string;
+}
+
+interface IGetFolderTreeResponse extends IStorageResponse {
+    data: IFolderInTree[];
+}
+
+interface ICreateDirectoryResponse extends IStorageResponse {
+    data: IStorageFile;
+}
+
+interface IViewResponse extends IStorageResponse {
+    data: IStorageFile[];
+}
+
+interface IUploadFileResponse extends IStorageResponse {
+    data: IStorageFile;
+}
+
+interface IMoveResponse extends IStorageResponse {
+    data: IStorageFile;
 }
 
 /**
@@ -300,11 +339,10 @@ declare class CubekitOrmClient {
 */
 declare class CubekitStorageClient {
     private axios;
-    private storageId;
     constructor(config: IStorageClientConfig);
     /**
      * Set new configuration
-     * @method CubekitStorageClient~setConfig
+     * @method CubekitStorageClient.setConfig
      * @param {IStorageClientConfig} config - an object with new configuration
      * @example
      *const config: IStorageClientConfig = {
@@ -318,14 +356,70 @@ declare class CubekitStorageClient {
     setConfig(config: IStorageClientConfig): void;
     /**
      * Set authorization header
-     * @method CubekitStorageClient~setAuthorizationHeader
+     * @method CubekitStorageClient.setAuthorizationHeader
      * @param {string} value - a string with auth data
      * @example
      *
      *storageClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
      */
     setAuthorizationHeader(value: string): void;
+    /**
+     * Get folder tree
+     * @method CubekitStorageClient.getFolderTree
+     * @example
+     *
+     *storageClient.getFolderTree();
+     */
+    getFolderTree(path?: string): Promise<IFolderInTree[]>;
+    /**
+     * Get avaliable folders and files
+     * @method CubekitStorageClient.view
+     * @example
+     *
+     *storageClient.view();
+     */
+    view(path?: string): Promise<IStorageFile[]>;
+    /**
+     * Create directory
+     * @method CubekitStorageClient.createDirectory
+     * @example
+     *
+     *storageClient.createDirectory();
+     */
+    createDirectory(path: string): Promise<ICreateDirectoryResponse>;
+    /**
+     * Delete directory or file
+     * @method CubekitStorageClient.delete
+     * @example
+     *
+     *storageClient.delete();
+     */
+    delete(paths: string[]): Promise<any>;
+    /**
+     * Upload file (with a require file name)
+     * @method CubekitStorageClient.upload
+     * @example
+     *
+     *storageClient.upload();
+     */
+    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void): Promise<IUploadFileResponse>;
+    /**
+     * Simple upload file (without file name)
+     * @method CubekitStorageClient.simpleUpload
+     * @example
+     *
+     *storageClient.simpleUpload();
+     */
+    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined): Promise<IUploadFileResponse>;
+    /**
+     * Move directory or file
+     * @method CubekitStorageClient.move
+     * @example
+     *
+     *storageClient.move();
+     */
+    move(source: string, target: string): Promise<IMoveResponse>;
 }
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
 
-export { CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IJoinOnParameter, IJoinParameter, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, IStorageClientConfig, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };
+export { CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };

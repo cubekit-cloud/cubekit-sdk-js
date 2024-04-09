@@ -1,0 +1,1 @@
+{"version":3,"file":"IMoveResponse.d.ts","sourceRoot":"","sources":["../../../src/interfaces/Storage/IMoveResponse.ts"],"names":[],"mappings":"AAAA,OAAO,YAAY,MAAM,gBAAgB,CAAC;AAC1C,OAAO,gBAAgB,MAAM,oBAAoB,CAAC;AAElD,MAAM,CAAC,OAAO,WAAW,aAAc,SAAQ,gBAAgB;IAC9D,IAAI,EAAE,YAAY,CAAC;CACnB"}

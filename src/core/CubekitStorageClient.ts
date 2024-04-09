@@ -1,5 +1,9 @@
-import axios, { AxiosInstance } from 'axios';
-import { IStorageClientConfig } from '../interfaces/Storage';
+import axios, { AxiosInstance, AxiosProgressEvent } from 'axios';
+import { IStorageClientConfig, IUploadFileResponse } from '../interfaces/Storage';
+import IGetFolderTreeResponse from '../interfaces/Storage/IGetFolderTreeResponse';
+import ICreateDirectoryResponse from '../interfaces/Storage/ICreateDirectoryResponse';
+import IViewResponse from '../interfaces/Storage/IViewResponse';
+import IMoveResponse from '../interfaces/Storage/IMoveResponse';
 
 /**
  * @class
@@ -18,10 +22,8 @@ import { IStorageClientConfig } from '../interfaces/Storage';
 */
 class CubekitStorageClient {
 	private axios: AxiosInstance;
-	private storageId: string | null = null;
 
 	constructor(config: IStorageClientConfig) {
-		this.storageId = config.storageId;
 		this.axios = axios.create({
 			baseURL: config.baseUrl,
 			withCredentials: true,
@@ -29,11 +31,11 @@ class CubekitStorageClient {
 				['x-api-key']: config.serviceKey,
 			},
 		});
-	};
+	}
 
 	/**
 	 * Set new configuration
-	 * @method CubekitStorageClient~setConfig
+	 * @method CubekitStorageClient.setConfig
 	 * @param {IStorageClientConfig} config - an object with new configuration
 	 * @example
 	 *const config: IStorageClientConfig = {
@@ -45,14 +47,13 @@ class CubekitStorageClient {
 	 *storageClient.setConfig(config);
 	 */
 	public setConfig(config: IStorageClientConfig) {
-		this.storageId = config.storageId;
 		this.axios.defaults.baseURL = config.baseUrl;
 		this.axios.defaults.headers['x-api-key'] = config.serviceKey;
-	};
+	}
 
 	/**
 	 * Set authorization header
-	 * @method CubekitStorageClient~setAuthorizationHeader
+	 * @method CubekitStorageClient.setAuthorizationHeader
 	 * @param {string} value - a string with auth data
 	 * @example
 	 *
@@ -60,7 +61,117 @@ class CubekitStorageClient {
 	 */
 	public setAuthorizationHeader(value: string) {
 		this.axios.defaults.headers['Authorization'] = value;
-	};
+	}
+
+	/**
+	 * Get folder tree
+	 * @method CubekitStorageClient.getFolderTree
+	 * @example
+	 *
+	 *storageClient.getFolderTree();
+	 */
+	public getFolderTree(path?: string) {
+		return this.axios
+			.get<IGetFolderTreeResponse>(`/tree?path=${path ? path : '/'}`)
+			.then((response) => response.data.data);
+	}
+
+	/**
+	 * Get avaliable folders and files
+	 * @method CubekitStorageClient.view
+	 * @example
+	 *
+	 *storageClient.view();
+	 */
+	public view(path?: string) {
+		return this.axios
+			.get<IViewResponse>(`/view?path=${path ? path : '/'}`)
+			.then((response) => response.data.data);
+	}
+
+	/**
+	 * Create directory
+	 * @method CubekitStorageClient.createDirectory
+	 * @example
+	 *
+	 *storageClient.createDirectory();
+	 */
+	public createDirectory(path: string) {
+		return this.axios
+			.post<ICreateDirectoryResponse>(`/createDirectory`, { path })
+			.then((response) => {
+				return response.data;
+			});
+	}
+
+	/**
+	 * Delete directory or file
+	 * @method CubekitStorageClient.delete
+	 * @example
+	 *
+	 *storageClient.delete();
+	 */
+	public delete(paths: string[]) {
+		return this.axios.delete(`/delete`, { data: paths }).then((response) => {
+			return response.data;
+		});
+	}
+
+	/**
+	 * Upload file (with a require file name)
+	 * @method CubekitStorageClient.upload
+	 * @example
+	 *
+	 *storageClient.upload();
+	 */
+	public upload(
+		path: string,
+		file: File,
+		fileName: string,
+		onUploadProgress?: (progressEvent: AxiosProgressEvent) => void
+	) {
+		const formData = new FormData();
+		formData.append('file', file);
+
+		return this.axios
+			.post<IUploadFileResponse>(`/upload?path=${path}&file_name=${fileName}`, formData, { onUploadProgress })
+			.then((response) => {
+				return response.data;
+			});
+	}
+
+	/**
+	 * Simple upload file (without file name)
+	 * @method CubekitStorageClient.simpleUpload
+	 * @example
+	 *
+	 *storageClient.simpleUpload();
+	 */
+	public simpleUpload(
+		path: string,
+		file: File,
+		onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined
+	) {
+		const formData = new FormData();
+		formData.append('file', file);
+
+		return this.axios.post<IUploadFileResponse>(`/simpleUpload?path=${path}`, formData, { onUploadProgress }).then((response) => {
+			return response.data;
+		});
+	}
+
+	/**
+	 * Move directory or file
+	 * @method CubekitStorageClient.move
+	 * @example
+	 *
+	 *storageClient.move();
+	 */
+	public move(source: string, target: string) {
+		return this.axios.post<IMoveResponse>(`/move?source=${source}&target=${target}`).then((response) => {
+			return response.data;
+		});
+	}
 }
 
 export default CubekitStorageClient;
