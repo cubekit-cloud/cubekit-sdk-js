@@ -215,6 +215,7 @@ interface IStorageClientConfig {
 
 interface IFolderInTree {
     name: string;
+    path: string;
     children: IFolderInTree[];
 }
 

@@ -7,7 +7,7 @@ const client = new CubekitStorageClient({
 });
 
 test('test', () => {
-	return client.createDirectory('/test').then((data) => {
+	return client.getFolderTree().then((data) => {
 		console.log('data', data);
 		expect(data).toBe('peanut butter');
 	});
