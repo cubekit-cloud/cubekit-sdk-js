@@ -131,7 +131,7 @@ class CubekitStorageClient {
 		onUploadProgress?: (progressEvent: AxiosProgressEvent) => void
 	) {
 		const formData = new FormData();
-		formData.append('file', file);
+		formData.append('upload_file', file);
 
 		return this.axios
 			.post<IUploadFileResponse>(`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`, formData, {
@@ -156,7 +156,7 @@ class CubekitStorageClient {
 		onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined
 	) {
 		const formData = new FormData();
-		formData.append('file', file);
+		formData.append('upload_file', file);
 
 		return this.axios
 			.post<IUploadFileResponse>(`/simpleUpload?path=${encodeURIComponent(path)}`, formData, {
