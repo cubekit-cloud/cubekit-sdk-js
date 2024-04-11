@@ -1,3 +1,4 @@
+import { AxiosProgressEvent } from 'axios';
 import IStorageClientConfig from './IStorageClientConfig';
 import IFolderInTree from './IFolderInTree';
 import IStorageFile from './IStorageFile';
@@ -18,4 +19,5 @@ export type {
 	IViewResponse,
 	IUploadFileResponse,
 	IMoveResponse,
+	AxiosProgressEvent,
 };

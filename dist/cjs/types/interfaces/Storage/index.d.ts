@@ -1,3 +1,4 @@
+import { AxiosProgressEvent } from 'axios';
 import IStorageClientConfig from './IStorageClientConfig';
 import IFolderInTree from './IFolderInTree';
 import IStorageFile from './IStorageFile';
@@ -7,5 +8,5 @@ import ICreateDirectoryResponse from './ICreateDirectoryResponse';
 import IViewResponse from './IViewResponse';
 import IUploadFileResponse from './IUploadFileResponse';
 import IMoveResponse from './IMoveResponse';
-export type { IStorageClientConfig, IFolderInTree, IStorageFile, IStorageResponse, IGetFolderTreeResponse, ICreateDirectoryResponse, IViewResponse, IUploadFileResponse, IMoveResponse, };
+export type { IStorageClientConfig, IFolderInTree, IStorageFile, IStorageResponse, IGetFolderTreeResponse, ICreateDirectoryResponse, IViewResponse, IUploadFileResponse, IMoveResponse, AxiosProgressEvent, };
 //# sourceMappingURL=index.d.ts.map

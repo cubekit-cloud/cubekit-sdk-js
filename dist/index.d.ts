@@ -1,5 +1,6 @@
 import * as axios from 'axios';
 import { AxiosProgressEvent } from 'axios';
+export { AxiosProgressEvent } from 'axios';
 
 declare enum RelationsModesEnum {
     SYNC = "sync",
