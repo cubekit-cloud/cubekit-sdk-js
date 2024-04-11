@@ -72,7 +72,7 @@ class CubekitStorageClient {
 	 */
 	public getFolderTree(path?: string) {
 		return this.axios
-			.get<IGetFolderTreeResponse>(`/tree?path=${path ? path : '/'}`)
+			.get<IGetFolderTreeResponse>(`/tree?path=${encodeURIComponent(path ? path : '/')}`)
 			.then((response) => response.data.data);
 	}
 
@@ -85,7 +85,7 @@ class CubekitStorageClient {
 	 */
 	public view(path?: string) {
 		return this.axios
-			.get<IViewResponse>(`/view?path=${path ? path : '/'}`)
+			.get<IViewResponse>(`/view?path=${encodeURIComponent(path ? path : '/')}`)
 			.then((response) => response.data.data);
 	}
 
@@ -98,7 +98,7 @@ class CubekitStorageClient {
 	 */
 	public createDirectory(path: string) {
 		return this.axios
-			.post<ICreateDirectoryResponse>(`/createDirectory?path=${path}`)
+			.post<ICreateDirectoryResponse>(`/createDirectory?path=${encodeURIComponent(path)}`)
 			.then((response) => {
 				return response.data;
 			});
@@ -134,7 +134,7 @@ class CubekitStorageClient {
 		formData.append('file', file);
 
 		return this.axios
-			.post<IUploadFileResponse>(`/upload?path=${path}&file_name=${fileName}`, formData, {
+			.post<IUploadFileResponse>(`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`, formData, {
 				onUploadProgress,
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
@@ -159,7 +159,7 @@ class CubekitStorageClient {
 		formData.append('file', file);
 
 		return this.axios
-			.post<IUploadFileResponse>(`/simpleUpload?path=${path}`, formData, {
+			.post<IUploadFileResponse>(`/simpleUpload?path=${encodeURIComponent(path)}`, formData, {
 				onUploadProgress,
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
@@ -177,7 +177,7 @@ class CubekitStorageClient {
 	 */
 	public move(source: string, target: string) {
 		return this.axios
-			.post<IMoveResponse>(`/move?source=${source}&target=${target}`)
+			.post<IMoveResponse>(`/move?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}`)
 			.then((response) => {
 				return response.data;
 			});
