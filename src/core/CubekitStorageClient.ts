@@ -98,7 +98,7 @@ class CubekitStorageClient {
 	 */
 	public createDirectory(path: string) {
 		return this.axios
-			.post<ICreateDirectoryResponse>(`/createDirectory`, { path })
+			.post<ICreateDirectoryResponse>(`/createDirectory?path=${path}`)
 			.then((response) => {
 				return response.data;
 			});
@@ -134,7 +134,10 @@ class CubekitStorageClient {
 		formData.append('file', file);
 
 		return this.axios
-			.post<IUploadFileResponse>(`/upload?path=${path}&file_name=${fileName}`, formData, { onUploadProgress })
+			.post<IUploadFileResponse>(`/upload?path=${path}&file_name=${fileName}`, formData, {
+				onUploadProgress,
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
 			.then((response) => {
 				return response.data;
 			});
@@ -155,9 +158,14 @@ class CubekitStorageClient {
 		const formData = new FormData();
 		formData.append('file', file);
 
-		return this.axios.post<IUploadFileResponse>(`/simpleUpload?path=${path}`, formData, { onUploadProgress }).then((response) => {
-			return response.data;
-		});
+		return this.axios
+			.post<IUploadFileResponse>(`/simpleUpload?path=${path}`, formData, {
+				onUploadProgress,
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((response) => {
+				return response.data;
+			});
 	}
 
 	/**
@@ -168,9 +176,11 @@ class CubekitStorageClient {
 	 *storageClient.move();
 	 */
 	public move(source: string, target: string) {
-		return this.axios.post<IMoveResponse>(`/move?source=${source}&target=${target}`).then((response) => {
-			return response.data;
-		});
+		return this.axios
+			.post<IMoveResponse>(`/move?source=${source}&target=${target}`)
+			.then((response) => {
+				return response.data;
+			});
 	}
 }
 
