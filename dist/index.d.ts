@@ -1,5 +1,5 @@
 import * as axios from 'axios';
-import { AxiosProgressEvent } from 'axios';
+import { AxiosProgressEvent, GenericAbortSignal } from 'axios';
 export { AxiosProgressEvent } from 'axios';
 
 declare enum RelationsModesEnum {
@@ -224,9 +224,9 @@ interface IStorageFile {
     bucket_name: string;
     object_name: string;
     full_name: string;
-    updated_at: string;
+    updated_at: string | null;
     is_file: boolean;
-    size: number;
+    size: number | null;
     url: string;
 }
 
@@ -407,7 +407,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.upload();
      */
-    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void): Promise<IUploadFileResponse>;
+    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Simple upload file (without file name)
      * @method CubekitStorageClient.simpleUpload
@@ -415,7 +415,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.simpleUpload();
      */
-    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined): Promise<IUploadFileResponse>;
+    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Move directory or file
      * @method CubekitStorageClient.move

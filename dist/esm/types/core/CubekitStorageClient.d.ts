@@ -1,4 +1,4 @@
-import { AxiosProgressEvent } from 'axios';
+import { AxiosProgressEvent, GenericAbortSignal } from 'axios';
 import { IStorageClientConfig, IUploadFileResponse } from '../interfaces/Storage';
 import ICreateDirectoryResponse from '../interfaces/Storage/ICreateDirectoryResponse';
 import IMoveResponse from '../interfaces/Storage/IMoveResponse';
@@ -82,7 +82,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.upload();
      */
-    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void): Promise<IUploadFileResponse>;
+    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Simple upload file (without file name)
      * @method CubekitStorageClient.simpleUpload
@@ -90,7 +90,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.simpleUpload();
      */
-    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined): Promise<IUploadFileResponse>;
+    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Move directory or file
      * @method CubekitStorageClient.move

@@ -1,4 +1,4 @@
-import axios, { AxiosInstance, AxiosProgressEvent } from 'axios';
+import axios, { AxiosInstance, AxiosProgressEvent, GenericAbortSignal } from 'axios';
 import { IStorageClientConfig, IUploadFileResponse } from '../interfaces/Storage';
 import IGetFolderTreeResponse from '../interfaces/Storage/IGetFolderTreeResponse';
 import ICreateDirectoryResponse from '../interfaces/Storage/ICreateDirectoryResponse';
@@ -128,7 +128,8 @@ class CubekitStorageClient {
 		path: string,
 		file: File,
 		fileName: string,
-		onUploadProgress?: (progressEvent: AxiosProgressEvent) => void
+		onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
+		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
 		formData.append('upload_file', file);
@@ -136,6 +137,7 @@ class CubekitStorageClient {
 		return this.axios
 			.post<IUploadFileResponse>(`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`, formData, {
 				onUploadProgress,
+				signal,
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
 			.then((response) => {
@@ -153,7 +155,8 @@ class CubekitStorageClient {
 	public simpleUpload(
 		path: string,
 		file: File,
-		onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined
+		onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined,
+		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
 		formData.append('upload_file', file);
@@ -161,6 +164,7 @@ class CubekitStorageClient {
 		return this.axios
 			.post<IUploadFileResponse>(`/simpleUpload?path=${encodeURIComponent(path)}`, formData, {
 				onUploadProgress,
+				signal,
 				headers: { 'Content-Type': 'multipart/form-data' },
 			})
 			.then((response) => {
