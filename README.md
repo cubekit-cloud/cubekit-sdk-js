@@ -92,17 +92,12 @@ interface A {	id: string;}interface B extends A {	name: string;}ormClient.
 	storageClient.upload({...});```
 
 **Kind**: global class  
+<a name="CubekitStorageClient.setConfig"></a>
 
-* [CubekitStorageClient](#CubekitStorageClient)
-    * [~setConfig(config)](#CubekitStorageClient..setConfig)
-    * [~setAuthorizationHeader(value)](#CubekitStorageClient..setAuthorizationHeader)
-
-<a name="CubekitStorageClient..setConfig"></a>
-
-### CubekitStorageClient~setConfig(config)
+### CubekitStorageClient.setConfig(config)
 Set new configuration
 
-**Kind**: inner method of [<code>CubekitStorageClient</code>](#CubekitStorageClient)  
+**Kind**: static method of [<code>CubekitStorageClient</code>](#CubekitStorageClient)  
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -111,19 +106,4 @@ Set new configuration
 **Example**  
 ```js
 const config: IStorageClientConfig = { baseUrl: '/'; serviceKey: 'xxxx-xxxx-xxxx-xxxx'; storageId: 'xxxx-xxxx-xxxx-xxxx';}storageClient.setConfig(config);
-```
-<a name="CubekitStorageClient..setAuthorizationHeader"></a>
-
-### CubekitStorageClient~setAuthorizationHeader(value)
-Set authorization header
-
-**Kind**: inner method of [<code>CubekitStorageClient</code>](#CubekitStorageClient)  
-
-| Param | Type | Description |
-| --- | --- | --- |
-| value | <code>string</code> | a string with auth data |
-
-**Example**  
-```js
-storageClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
 ```

@@ -1,4 +1,9 @@
-import axios, { AxiosInstance, AxiosProgressEvent, GenericAbortSignal } from 'axios';
+import axios, {
+	AxiosInstance,
+	AxiosProgressEvent,
+	GenericAbortSignal,
+	InternalAxiosRequestConfig,
+} from 'axios';
 import { IStorageClientConfig, IUploadFileResponse } from '../interfaces/Storage';
 import IGetFolderTreeResponse from '../interfaces/Storage/IGetFolderTreeResponse';
 import ICreateDirectoryResponse from '../interfaces/Storage/ICreateDirectoryResponse';
@@ -135,14 +140,31 @@ class CubekitStorageClient {
 		formData.append('upload_file', file);
 
 		return this.axios
-			.post<IUploadFileResponse>(`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`, formData, {
-				onUploadProgress,
-				signal,
-				headers: { 'Content-Type': 'multipart/form-data' },
-			})
+			.post<IUploadFileResponse>(
+				`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`,
+				formData,
+				{
+					onUploadProgress,
+					signal,
+					headers: { 'Content-Type': 'multipart/form-data' },
+				}
+			)
 			.then((response) => {
 				return response.data;
 			});
+	}
+
+	/**
+	 * Resend request
+	 * @method CubekitStorageClient.resend
+	 * @example
+	 *
+	 *storageClient.resend();
+	 */
+	public resend(config: InternalAxiosRequestConfig) {
+		return this.axios.request(config).then((response) => {
+			return response.data;
+		});
 	}
 
 	/**
@@ -181,7 +203,9 @@ class CubekitStorageClient {
 	 */
 	public move(source: string, target: string) {
 		return this.axios
-			.post<IMoveResponse>(`/move?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}`)
+			.post<IMoveResponse>(
+				`/move?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}`
+			)
 			.then((response) => {
 				return response.data;
 			});

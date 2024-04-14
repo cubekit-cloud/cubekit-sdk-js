@@ -1,5 +1,5 @@
 import * as axios from 'axios';
-import { AxiosProgressEvent, GenericAbortSignal } from 'axios';
+import { AxiosProgressEvent, GenericAbortSignal, InternalAxiosRequestConfig } from 'axios';
 export { AxiosError, AxiosProgressEvent, InternalAxiosRequestConfig } from 'axios';
 
 declare enum RelationsModesEnum {
@@ -408,6 +408,14 @@ declare class CubekitStorageClient {
      *storageClient.upload();
      */
     upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
+    /**
+     * Resend request
+     * @method CubekitStorageClient.resend
+     * @example
+     *
+     *storageClient.resend();
+     */
+    resend(config: InternalAxiosRequestConfig): Promise<any>;
     /**
      * Simple upload file (without file name)
      * @method CubekitStorageClient.simpleUpload

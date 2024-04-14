@@ -1,4 +1,4 @@
-import { AxiosProgressEvent, GenericAbortSignal } from 'axios';
+import { AxiosProgressEvent, GenericAbortSignal, InternalAxiosRequestConfig } from 'axios';
 import { IStorageClientConfig, IUploadFileResponse } from '../interfaces/Storage';
 import ICreateDirectoryResponse from '../interfaces/Storage/ICreateDirectoryResponse';
 import IMoveResponse from '../interfaces/Storage/IMoveResponse';
@@ -83,6 +83,14 @@ declare class CubekitStorageClient {
      *storageClient.upload();
      */
     upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
+    /**
+     * Resend request
+     * @method CubekitStorageClient.resend
+     * @example
+     *
+     *storageClient.resend();
+     */
+    resend(config: InternalAxiosRequestConfig): Promise<any>;
     /**
      * Simple upload file (without file name)
      * @method CubekitStorageClient.simpleUpload
