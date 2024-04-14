@@ -1,4 +1,4 @@
-import { AxiosProgressEvent, AxiosError } from 'axios';
+import { AxiosProgressEvent, AxiosError, InternalAxiosRequestConfig } from 'axios';
 import IStorageClientConfig from './IStorageClientConfig';
 import IFolderInTree from './IFolderInTree';
 import IStorageFile from './IStorageFile';
@@ -21,4 +21,5 @@ export type {
 	IMoveResponse,
 	AxiosProgressEvent,
 	AxiosError,
+	InternalAxiosRequestConfig,
 };
