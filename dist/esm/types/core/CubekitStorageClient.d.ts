@@ -58,7 +58,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.view();
      */
-    view(path?: string): Promise<import("../interfaces/Storage").IStorageFile[]>;
+    view(path?: string, order_by?: string, order?: string, filter_by?: string, filter?: string): Promise<import("../interfaces/Storage").IStorageFile[]>;
     /**
      * Create directory
      * @method CubekitStorageClient.createDirectory

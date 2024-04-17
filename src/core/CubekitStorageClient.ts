@@ -88,9 +88,23 @@ class CubekitStorageClient {
 	 *
 	 *storageClient.view();
 	 */
-	public view(path?: string) {
+	public view(path?: string, order_by?: string, order?: string, filter_by?: string, filter?: string) {
+		const searchParams = new URLSearchParams();
+		searchParams.append('path', path ? path : '/');
+		if (order_by) {
+			searchParams.append('order_by', order_by);
+		}
+		if (order) {
+			searchParams.append('order', order);
+		}
+		if (filter_by) {
+			searchParams.append('filter_by', filter_by);
+		}
+		if (filter) {
+			searchParams.append('filter', filter);
+		}
 		return this.axios
-			.get<IViewResponse>(`/view?path=${encodeURIComponent(path ? path : '/')}`)
+			.get<IViewResponse>(`/view?${searchParams.toString()}`)
 			.then((response) => response.data.data);
 	}
 
