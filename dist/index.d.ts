@@ -432,6 +432,14 @@ declare class CubekitStorageClient {
      *storageClient.move();
      */
     move(source: string, target: string): Promise<IMoveResponse>;
+    /**
+     * Download objects
+     * @method CubekitStorageClient.download
+     * @example
+     *
+     *storageClient.download();
+     */
+    download(path: string, objects: string[]): Promise<any>;
 }
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
 

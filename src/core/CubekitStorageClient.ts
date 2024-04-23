@@ -88,7 +88,13 @@ class CubekitStorageClient {
 	 *
 	 *storageClient.view();
 	 */
-	public view(path?: string, order_by?: string, order?: string, filter_by?: string, filter?: string) {
+	public view(
+		path?: string,
+		order_by?: string,
+		order?: string,
+		filter_by?: string,
+		filter?: string
+	) {
 		const searchParams = new URLSearchParams();
 		searchParams.append('path', path ? path : '/');
 		if (order_by) {
@@ -220,6 +226,23 @@ class CubekitStorageClient {
 			.post<IMoveResponse>(
 				`/move?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}`
 			)
+			.then((response) => {
+				return response.data;
+			});
+	}
+
+	/**
+	 * Download objects
+	 * @method CubekitStorageClient.download
+	 * @example
+	 *
+	 *storageClient.download();
+	 */
+	public download(path: string, objects: string[]) {
+		return this.axios
+			.post(`/bulkDownload?path=${encodeURIComponent(path)}`, objects, {
+				responseType: 'blob',
+			})
 			.then((response) => {
 				return response.data;
 			});
