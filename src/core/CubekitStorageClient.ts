@@ -239,13 +239,9 @@ class CubekitStorageClient {
 	 *storageClient.download();
 	 */
 	public download(path: string, objects: string[]) {
-		return this.axios
-			.post(`/bulkDownload?path=${encodeURIComponent(path)}`, objects, {
-				responseType: 'blob',
-			})
-			.then((response) => {
-				return response.data;
-			});
+		return this.axios.post(`/bulkDownload?path=${encodeURIComponent(path)}`, objects, {
+			responseType: 'blob',
+		});
 	}
 }
 
