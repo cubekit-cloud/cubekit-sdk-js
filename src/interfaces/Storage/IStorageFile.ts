@@ -3,7 +3,7 @@ export default interface IStorageFile {
 	object_name: string;
 	full_name: string;
 	updated_at: string | null;
-	is_file: boolean;
+	is_dir: boolean;
 	size: number | null;
 	url: string;
 }
