@@ -158,7 +158,7 @@ class CubekitStorageClient {
 		const formData = new FormData();
 		formData.append('objects_path', encodeURIComponent(path));
 		files.forEach((file) => {
-			formData.append('files[]', file);
+			formData.append('files', file);
 		});
 
 		return this.axios
@@ -201,7 +201,7 @@ class CubekitStorageClient {
 		const formData = new FormData();
 		formData.append('objects_path', encodeURIComponent(path));
 		files.forEach((file) => {
-			formData.append('files[]', file);
+			formData.append('files', file);
 		});
 
 		return this.axios
