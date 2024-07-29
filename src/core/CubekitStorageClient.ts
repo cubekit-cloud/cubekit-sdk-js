@@ -156,7 +156,7 @@ class CubekitStorageClient {
 		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
-		formData.append('objects_path', encodeURIComponent(path));
+		formData.append('objects_path', path);
 		files.forEach((file) => {
 			formData.append('files', file);
 		});
@@ -199,7 +199,7 @@ class CubekitStorageClient {
 		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
-		formData.append('objects_path', encodeURIComponent(path));
+		formData.append('objects_path', path);
 		files.forEach((file) => {
 			formData.append('files', file);
 		});
@@ -224,9 +224,7 @@ class CubekitStorageClient {
 	 */
 	public move(source: string, target: string) {
 		return this.axios
-			.post<IMoveResponse>(
-				`/move?source=${encodeURIComponent(source)}&target=${encodeURIComponent(target)}`
-			)
+			.post<IMoveResponse>(`/objects/${encodeURIComponent(source)}`, { target: target })
 			.then((response) => {
 				return response.data;
 			});
@@ -240,7 +238,7 @@ class CubekitStorageClient {
 	 *storageClient.download();
 	 */
 	public download(path: string, objects: string[]) {
-		return this.axios.post(`/bulkDownload?path=${encodeURIComponent(path)}`, objects, {
+		return this.axios.post(`/bulkDownloads?objects_path=${encodeURIComponent(path)}`, objects, {
 			responseType: 'blob',
 		});
 	}
