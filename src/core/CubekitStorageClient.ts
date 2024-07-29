@@ -137,7 +137,7 @@ class CubekitStorageClient {
 	 *storageClient.delete();
 	 */
 	public delete(paths: string[]) {
-		return this.axios.delete(`/delete`, { data: paths }).then((response) => {
+		return this.axios.delete(`/objects`, { data: paths }).then((response) => {
 			return response.data;
 		});
 	}
