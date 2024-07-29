@@ -82,7 +82,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.upload();
      */
-    upload(path: string, file: File, fileName: string, onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
+    upload(path: string, files: File[], onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Resend request
      * @method CubekitStorageClient.resend
@@ -98,7 +98,7 @@ declare class CubekitStorageClient {
      *
      *storageClient.simpleUpload();
      */
-    simpleUpload(path: string, file: File, onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
+    simpleUpload(path: string, files: File[], onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
     /**
      * Move directory or file
      * @method CubekitStorageClient.move

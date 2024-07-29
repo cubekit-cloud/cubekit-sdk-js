@@ -77,7 +77,7 @@ class CubekitStorageClient {
 	 */
 	public getFolderTree(path?: string) {
 		return this.axios
-			.get<IGetFolderTreeResponse>(`/tree?path=${encodeURIComponent(path ? path : '/')}`)
+			.get<IGetFolderTreeResponse>(`/trees?path=${encodeURIComponent(path ? path : '/')}`)
 			.then((response) => response.data.data);
 	}
 
@@ -123,7 +123,7 @@ class CubekitStorageClient {
 	 */
 	public createDirectory(path: string) {
 		return this.axios
-			.post<ICreateDirectoryResponse>(`/createDirectory?path=${encodeURIComponent(path)}`)
+			.put<ICreateDirectoryResponse>(`/objects/${encodeURIComponent(path)}`)
 			.then((response) => {
 				return response.data;
 			});
@@ -151,24 +151,22 @@ class CubekitStorageClient {
 	 */
 	public upload(
 		path: string,
-		file: File,
-		fileName: string,
+		files: File[],
 		onUploadProgress?: (progressEvent: AxiosProgressEvent) => void,
 		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
-		formData.append('upload_file', file);
+		formData.append('objects_path', encodeURIComponent(path));
+		files.forEach((file) => {
+			formData.append('files[]', file);
+		});
 
 		return this.axios
-			.post<IUploadFileResponse>(
-				`/upload?path=${encodeURIComponent(path)}&file_name=${fileName}`,
-				formData,
-				{
-					onUploadProgress,
-					signal,
-					headers: { 'Content-Type': 'multipart/form-data' },
-				}
-			)
+			.put<IUploadFileResponse>(`/objects`, formData, {
+				onUploadProgress,
+				signal,
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
 			.then((response) => {
 				return response.data;
 			});
@@ -196,15 +194,18 @@ class CubekitStorageClient {
 	 */
 	public simpleUpload(
 		path: string,
-		file: File,
+		files: File[],
 		onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined,
 		signal?: GenericAbortSignal
 	) {
 		const formData = new FormData();
-		formData.append('upload_file', file);
+		formData.append('objects_path', encodeURIComponent(path));
+		files.forEach((file) => {
+			formData.append('files[]', file);
+		});
 
 		return this.axios
-			.post<IUploadFileResponse>(`/simpleUpload?path=${encodeURIComponent(path)}`, formData, {
+			.post<IUploadFileResponse>(`/objects`, formData, {
 				onUploadProgress,
 				signal,
 				headers: { 'Content-Type': 'multipart/form-data' },
