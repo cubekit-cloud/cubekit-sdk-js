@@ -110,7 +110,7 @@ class CubekitStorageClient {
 			searchParams.append('filter', filter);
 		}
 		return this.axios
-			.get<IViewResponse>(`/view?${searchParams.toString()}`)
+			.get<IViewResponse>(`/objects?${searchParams.toString()}`)
 			.then((response) => response.data.data);
 	}
 
