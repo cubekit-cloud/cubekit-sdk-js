@@ -224,7 +224,7 @@ class CubekitStorageClient {
 	 */
 	public move(source: string, target: string) {
 		return this.axios
-			.post<IMoveResponse>(`/objects/${encodeURIComponent(source)}`, { target: target })
+			.patch<IMoveResponse>(`/objects/${encodeURIComponent(source)}`, { target: target })
 			.then((response) => {
 				return response.data;
 			});
