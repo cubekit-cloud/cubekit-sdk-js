@@ -1,8 +1,8 @@
 import { FilterBooleansEnum, OperatorsEnum, FilterTypesEnum, FilterValueTypesEnum } from '../../enums';
 export default interface IWhereParameter<T> {
-    column: keyof T;
+    column?: keyof T;
     operator?: OperatorsEnum;
-    value: string;
+    value: string | string[];
     value_type?: FilterValueTypesEnum;
     boolean?: FilterBooleansEnum;
     type?: FilterTypesEnum;
