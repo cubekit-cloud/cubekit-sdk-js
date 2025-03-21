@@ -66,11 +66,11 @@ declare enum RequestOrmMethodsEnum {
 interface IWhereParameter<T> {
     column?: keyof T;
     operator?: OperatorsEnum;
-    value: string | string[];
+    value?: string | string[];
     value_type?: FilterValueTypesEnum;
     boolean?: FilterBooleansEnum;
     type?: FilterTypesEnum;
-    group?: IWhereParameter<T>;
+    group?: IWhereParameter<T>[];
 }
 
 interface IPaginations {
