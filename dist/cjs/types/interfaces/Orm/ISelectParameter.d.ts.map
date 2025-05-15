@@ -1,0 +1,1 @@
+{"version":3,"file":"ISelectParameter.d.ts","sourceRoot":"","sources":["../../../src/interfaces/Orm/ISelectParameter.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,gBAAgB,EAAE,MAAM,aAAa,CAAC;AAE/C,MAAM,CAAC,OAAO,WAAW,gBAAgB,CAAC,CAAC;IAC1C,MAAM,CAAC,EAAE,MAAM,CAAC,CAAC;IACjB,WAAW,CAAC,EAAE,gBAAgB,CAAC;IAC/B,KAAK,CAAC,EAAE,MAAM,CAAC;CACf"}

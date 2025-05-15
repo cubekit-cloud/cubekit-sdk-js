@@ -4,6 +4,14 @@ export enum RelationsModesEnum {
     DETACH = 'detach',
 }
 
+export enum AggregationsEnum {
+    COUNT = 'count',
+    SUM = 'sum',
+    AVG = 'avg',
+    MIN = 'min',
+    MAX = 'max',
+}
+
 export enum OperatorsEnum {
     EQUAL = '=',
     INEQUAL = '!=',

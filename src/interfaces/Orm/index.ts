@@ -1,4 +1,5 @@
 import IWhereParameter from './IWhereParameter';
+import ISelectParameter from './ISelectParameter';
 import IPaginations from './IPaginations';
 import IOrmSearchOptions from './IOrmSearchOptions';
 import IOrmClientConfig from './IOrmClientConfig';
@@ -27,6 +28,7 @@ export type {
 	IOrmSearchOptions,
 	IPaginations,
 	IWhereParameter,
+	ISelectParameter,
 	IJoinParameter,
 	IJoinOnParameter,
 	IOrderParameter,

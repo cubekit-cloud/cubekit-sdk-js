@@ -7,6 +7,13 @@ declare enum RelationsModesEnum {
     ATTACH = "attach",
     DETACH = "detach"
 }
+declare enum AggregationsEnum {
+    COUNT = "count",
+    SUM = "sum",
+    AVG = "avg",
+    MIN = "min",
+    MAX = "max"
+}
 declare enum OperatorsEnum {
     EQUAL = "=",
     INEQUAL = "!=",
@@ -73,6 +80,12 @@ interface IWhereParameter<T> {
     group?: IWhereParameter<T>[];
 }
 
+interface ISelectParameter<T> {
+    column?: keyof T;
+    aggregation?: AggregationsEnum;
+    alias?: string;
+}
+
 interface IPaginations {
     limit?: number;
     page?: number;
@@ -133,7 +146,7 @@ interface IRelationships<T> {
 
 interface IOrmSearchOptions<T> {
     pagination?: IPaginations;
-    select?: Array<keyof T | '*'>;
+    select?: ISelectParameter<T>[];
     where?: IWhereParameter<T>[];
     join?: IJoinParameter<T>[];
     order?: IOrderParameter<T>[];
@@ -443,4 +456,4 @@ declare class CubekitStorageClient {
 }
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
 
-export { CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };
+export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };

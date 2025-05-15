@@ -1,4 +1,5 @@
 import IWhereParameter from './IWhereParameter';
+import ISelectParameter from './ISelectParameter';
 import IPaginations from './IPaginations';
 import IOrmSearchOptions from './IOrmSearchOptions';
 import IOrmClientConfig from './IOrmClientConfig';
@@ -20,5 +21,5 @@ import IData from './IData';
 import IDataRelationships from './IDataRelationships';
 import IResponse from './response/IResponse';
 import IResponseMeta from './response/IResponseMeta';
-export type { IOrmClientConfig, IRequestParams, IOrmSearchOptions, IPaginations, IWhereParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IOrmGetByIdOptions, IOrmCreateOptions, IOrmUpdateOptions, IOrmDeleteOptions, IResponse, IResponseMeta, IRelationship, IRelationships, IDataRelationships, IData, };
+export type { IOrmClientConfig, IRequestParams, IOrmSearchOptions, IPaginations, IWhereParameter, ISelectParameter, IJoinParameter, IJoinOnParameter, IOrderParameter, IExportParameters, ICsvExportSettings, IXlsxExportSettings, IExportField, IOrmGetByIdOptions, IOrmCreateOptions, IOrmUpdateOptions, IOrmDeleteOptions, IResponse, IResponseMeta, IRelationship, IRelationships, IDataRelationships, IData, };
 //# sourceMappingURL=index.d.ts.map

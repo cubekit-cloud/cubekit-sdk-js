@@ -3,6 +3,13 @@ export declare enum RelationsModesEnum {
     ATTACH = "attach",
     DETACH = "detach"
 }
+export declare enum AggregationsEnum {
+    COUNT = "count",
+    SUM = "sum",
+    AVG = "avg",
+    MIN = "min",
+    MAX = "max"
+}
 export declare enum OperatorsEnum {
     EQUAL = "=",
     INEQUAL = "!=",
