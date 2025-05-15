@@ -135,7 +135,7 @@ interface IOrderParameter<T> {
 }
 
 interface IRelationship<T> {
-    select?: Array<keyof T>;
+    select?: ISelectParameter<T>[];
     where?: IWhereParameter<T>[];
     order?: IOrderParameter<T>[];
 }
