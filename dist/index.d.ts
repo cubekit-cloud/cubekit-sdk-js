@@ -263,7 +263,7 @@ interface IViewResponse extends IStorageResponse {
 }
 
 interface IUploadFileResponse extends IStorageResponse {
-    data: IStorageFile;
+    data: IStorageFile[];
 }
 
 interface IMoveResponse extends IStorageResponse {
