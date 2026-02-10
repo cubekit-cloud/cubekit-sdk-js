@@ -1,6 +1,6 @@
 {
   "name": "@cubekit-cloud/cubekit-sdk-js",
-  "version": "1.0.59",
+  "version": "1.0.60",
   "description": "@cubekit-cloud/cubekit-sdk-js - the library for working with auto generated API from cubekit.com",
   "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",

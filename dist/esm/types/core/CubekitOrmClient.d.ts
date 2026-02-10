@@ -79,7 +79,7 @@ declare class CubekitOrmClient {
     private delete;
     getProcessState(tenantId: string, entityId: string): Promise<AxiosResponse<IResponse<IProcessState>, any>>;
     startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<AxiosResponse<IWorkflowResponse, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<AxiosResponse<IWorkflowInstance, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data?: any): Promise<AxiosResponse<IWorkflowInstance, any>>;
 }
 export default CubekitOrmClient;
 //# sourceMappingURL=CubekitOrmClient.d.ts.map

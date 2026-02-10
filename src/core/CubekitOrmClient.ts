@@ -195,11 +195,11 @@ class CubekitOrmClient {
 		tenantId: string,
 		workflowInstanceId: string,
 		actionId: string,
-		data: any
+		data?: any
 	) {
 		return this.axios.post<IWorkflowInstance>(
-			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instance/${workflowInstanceId}/actions/${actionId}/execute`,
-			data
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instances/${workflowInstanceId}/actions/${actionId}/execute`,
+			data || {}
 		);
 	}
 }
