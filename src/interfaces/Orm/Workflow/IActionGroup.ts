@@ -1,6 +1,6 @@
 export interface IActionGroup {
 	id: string;
-	meta: any;
+	meta: any | null;
 	name: string;
 	workflow_step_id: string;
 }

@@ -11,6 +11,7 @@ import {
 import { RequestOrmMethodsEnum } from '../enums';
 import { WORKFLOW_URL } from '../config/const';
 import IProcessState from '../interfaces/Orm/Workflow/IProcessState';
+import IWorkflowResponse from '../interfaces/Orm/response/IWorkflowResponse';
 
 const ID_SPOT = '{key}';
 
@@ -165,14 +166,20 @@ class CubekitOrmClient {
 	}
 
 	public startProcess(tenantId: string, workflowDefenitionId: string, entityId: string) {
-		return this.axios.post<IResponse<IProcessState>>(
+		return this.axios.post<IWorkflowResponse>(
 			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/defenitions/${workflowDefenitionId}/start/${entityId}`
 		);
 	}
 
-	public executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string) {
+	public executeProcessAction(
+		tenantId: string,
+		workflowInstanceId: string,
+		actionId: string,
+		data: any
+	) {
 		return this.axios.post<IResponse<IProcessState>>(
-			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instance/${workflowInstanceId}/actions/${actionId}/execute`
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instance/${workflowInstanceId}/actions/${actionId}/execute`,
+			data
 		);
 	}
 }
