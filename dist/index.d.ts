@@ -421,7 +421,7 @@ interface IProcessState {
     definition: Pick<IWorkflowDefinition, 'id' | 'code' | 'name'>;
     current_step: IStepLink;
     step_actions: IStep[];
-    allowed_actions: IStep[];
+    allowed_actions: Pick<IStep, "id" | "label" | "name" | "action_type">[];
     action_groups: IActionGroup[];
     history: IProcessHistory[];
 }
