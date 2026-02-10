@@ -1,4 +1,4 @@
-export interface IProcessPayload {
+export default interface IProcessPayload {
     result: string;
 }
 //# sourceMappingURL=IProcessPayload.d.ts.map

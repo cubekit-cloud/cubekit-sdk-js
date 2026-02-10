@@ -1,4 +1,4 @@
-export interface IActionGroup {
+export default interface IActionGroup {
     id: string;
     meta: any | null;
     name: string;

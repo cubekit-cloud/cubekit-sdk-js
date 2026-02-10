@@ -1,7 +1,7 @@
-import { IActionGroup } from './IActionGroup';
-import { IProcessHistory } from './IProcessHistory';
-import { IWorkflowDefinition } from './IWorkflowDefinition';
-export interface IWorkflowData {
+import IActionGroup from './IActionGroup';
+import IProcessHistory from './IProcessHistory';
+import IWorkflowDefinition from './IWorkflowDefinition';
+export default interface IWorkflowData {
     definition: IWorkflowDefinition;
     current_step_id: string;
     steps: Record<string, WorkflowStep>;
@@ -17,7 +17,7 @@ interface BuildMeta {
 interface DocumentData {
     id: string;
     name: string;
-    price: number | null;
+    price: number | string | null;
     file: any | null;
     description: string | null;
     created_at: string;
@@ -65,7 +65,7 @@ interface ActionState {
     result: any | null;
     timestamp: string | null;
     user_id: string | null;
-    payload: any[];
+    payload: any;
     errors: any[];
 }
 interface Transition {

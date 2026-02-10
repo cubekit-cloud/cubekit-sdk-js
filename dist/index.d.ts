@@ -222,65 +222,11 @@ interface IResponse<T> {
     data: string | T | T[];
 }
 
-interface IStorageClientConfig {
-    baseUrl: string;
-    serviceKey: string;
-}
-
-interface IFolderInTree {
-    name: string;
-    path: string;
-    children: IFolderInTree[];
-}
-
-interface IStorageFile {
-    bucket_name: string;
-    object_name: string;
-    full_name: string;
-    updated_at: string | null;
-    is_dir: boolean;
-    size: number | null;
-    url: string;
-}
-
-interface IStorageResponse {
-    code: number;
-    status: string;
-    timestamp: string;
-    message: string;
-}
-
-interface IGetFolderTreeResponse extends IStorageResponse {
-    data: IFolderInTree[];
-}
-
-interface ICreateDirectoryResponse extends IStorageResponse {
-    data: IStorageFile;
-}
-
-interface IViewResponse extends IStorageResponse {
-    data: IStorageFile[];
-}
-
-interface IUploadFileResponse extends IStorageResponse {
-    data: IStorageFile[];
-}
-
-interface IMoveResponse extends IStorageResponse {
-    data: IStorageFile;
-}
-
 interface IActionGroup {
     id: string;
     meta: any | null;
     name: string;
     workflow_step_id: string;
-}
-
-interface IStepLink {
-    id: string;
-    name: string;
-    order: number;
 }
 
 interface IProcessPayload {
@@ -294,6 +240,12 @@ interface IProcessAction {
     action_type: string;
 }
 
+interface IStepLink {
+    id: string;
+    name: string;
+    order: number;
+}
+
 interface IProcessHistory {
     type: string;
     timestamp: Date;
@@ -304,22 +256,10 @@ interface IProcessHistory {
     payload: IProcessPayload;
     errors: any[];
     transition_id: null | string;
-    from_step: IStepLink;
-    to_step: IStepLink;
-}
-
-interface IStep {
-    id: string;
-    name: string;
-    label: string;
-    action_type: string;
-    assignee_type: string;
-    status: string;
-    timestamp: null;
-    user_id: null;
-    payload: any[];
-    errors: any[];
-    workflow_action_group_id: string;
+    from_step?: IStepLink;
+    from_step_id?: string;
+    to_step?: IStepLink;
+    to_step_id?: string;
 }
 
 interface IWorkflowDefinition {
@@ -355,7 +295,7 @@ interface BuildMeta {
 interface DocumentData {
     id: string;
     name: string;
-    price: number | null;
+    price: number | string | null;
     file: any | null;
     description: string | null;
     created_at: string;
@@ -403,7 +343,7 @@ interface ActionState {
     result: any | null;
     timestamp: string | null;
     user_id: string | null;
-    payload: any[];
+    payload: any;
     errors: any[];
 }
 interface Transition {
@@ -443,6 +383,37 @@ interface IWorkflowInstance {
     data: IWorkflowData;
     updated_at: string;
     created_at: string;
+    completed_at: string | null;
+}
+
+interface IWorkflowResponse {
+    status: string;
+    instance: IWorkflowInstance;
+}
+
+interface IWorkflowProcessExecuteResponse {
+    status: string;
+    code: number;
+    message: string;
+    data: any | null;
+    error: {
+        [key: string]: string[];
+    };
+    meta: any | null;
+}
+
+interface IStep {
+    id: string;
+    name: string;
+    label: string;
+    action_type: string;
+    assignee_type: string;
+    status: string;
+    timestamp: null;
+    user_id: null;
+    payload: any[];
+    errors: any[];
+    workflow_action_group_id: string;
 }
 
 interface IProcessState {
@@ -455,9 +426,52 @@ interface IProcessState {
     history: IProcessHistory[];
 }
 
-interface IWorkflowResponse {
+interface IStorageClientConfig {
+    baseUrl: string;
+    serviceKey: string;
+}
+
+interface IFolderInTree {
+    name: string;
+    path: string;
+    children: IFolderInTree[];
+}
+
+interface IStorageFile {
+    bucket_name: string;
+    object_name: string;
+    full_name: string;
+    updated_at: string | null;
+    is_dir: boolean;
+    size: number | null;
+    url: string;
+}
+
+interface IStorageResponse {
+    code: number;
     status: string;
-    instance: IWorkflowInstance;
+    timestamp: string;
+    message: string;
+}
+
+interface IGetFolderTreeResponse extends IStorageResponse {
+    data: IFolderInTree[];
+}
+
+interface ICreateDirectoryResponse extends IStorageResponse {
+    data: IStorageFile;
+}
+
+interface IViewResponse extends IStorageResponse {
+    data: IStorageFile[];
+}
+
+interface IUploadFileResponse extends IStorageResponse {
+    data: IStorageFile[];
+}
+
+interface IMoveResponse extends IStorageResponse {
+    data: IStorageFile;
 }
 
 /**
@@ -529,7 +543,7 @@ declare class CubekitOrmClient {
     private delete;
     getProcessState(tenantId: string, entityId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
     startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<axios.AxiosResponse<IWorkflowResponse, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<axios.AxiosResponse<IWorkflowInstance, any>>;
 }
 //# sourceMappingURL=CubekitOrmClient.d.ts.map
 
@@ -649,4 +663,4 @@ declare class CubekitStorageClient {
 }
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
 
-export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };
+export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IActionGroup, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IProcessAction, IProcessHistory, IProcessPayload, IProcessState, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStep, IStepLink, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IWorkflowData, IWorkflowDefinition, IWorkflowDocumentInfo, IWorkflowInstance, IWorkflowInstanceMeta, IWorkflowProcessExecuteResponse, IWorkflowResponse, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };

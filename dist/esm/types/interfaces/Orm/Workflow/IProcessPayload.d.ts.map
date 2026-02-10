@@ -1,1 +1,1 @@
-{"version":3,"file":"IProcessPayload.d.ts","sourceRoot":"","sources":["../../../../src/interfaces/Orm/Workflow/IProcessPayload.ts"],"names":[],"mappings":"AAAA,MAAM,WAAW,eAAe;IAC/B,MAAM,EAAE,MAAM,CAAC;CACf"}
+{"version":3,"file":"IProcessPayload.d.ts","sourceRoot":"","sources":["../../../../src/interfaces/Orm/Workflow/IProcessPayload.ts"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,WAAW,eAAe;IACvC,MAAM,EAAE,MAAM,CAAC;CACf"}

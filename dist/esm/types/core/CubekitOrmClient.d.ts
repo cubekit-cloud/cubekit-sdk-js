@@ -1,6 +1,6 @@
 import IOrmClientConfig from '../interfaces/Orm/IOrmClientConfig';
 import IOrmRequestParameter from '../interfaces/Orm/IOrmRequestParameter';
-import { IResponse } from '../interfaces/Orm';
+import { IResponse, IWorkflowInstance } from '../interfaces/Orm';
 import IProcessState from '../interfaces/Orm/Workflow/IProcessState';
 import IWorkflowResponse from '../interfaces/Orm/response/IWorkflowResponse';
 /**
@@ -72,7 +72,7 @@ declare class CubekitOrmClient {
     private delete;
     getProcessState(tenantId: string, entityId: string): Promise<import("axios").AxiosResponse<IResponse<IProcessState>, any>>;
     startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<import("axios").AxiosResponse<IWorkflowResponse, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<import("axios").AxiosResponse<IResponse<IProcessState>, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<import("axios").AxiosResponse<IWorkflowInstance, any>>;
 }
 export default CubekitOrmClient;
 //# sourceMappingURL=CubekitOrmClient.d.ts.map
