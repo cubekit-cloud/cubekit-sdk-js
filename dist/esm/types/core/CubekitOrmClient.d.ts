@@ -1,3 +1,4 @@
+import { AxiosInterceptorOptions, AxiosResponse } from 'axios';
 import IOrmClientConfig from '../interfaces/Orm/IOrmClientConfig';
 import IOrmRequestParameter from '../interfaces/Orm/IOrmRequestParameter';
 import { IResponse, IWorkflowInstance } from '../interfaces/Orm';
@@ -44,6 +45,12 @@ declare class CubekitOrmClient {
      */
     setAuthorizationHeader(value: string): void;
     /**
+     * Set response interceptor
+     * @method CubekitOrmClient~setResponseInterceptor
+     *
+     */
+    setResponseInterceptor(onFulfilled?: ((value: AxiosResponse<any, any>) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>) | null | undefined, onRejected?: ((error: any) => any) | null, options?: AxiosInterceptorOptions): void;
+    /**
      * Send request to API cubkit.com with params.
      * @method CubekitOrmClient~send
      * @param {IOrmRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
@@ -63,16 +70,16 @@ declare class CubekitOrmClient {
      *ormClient.send<A, B>({
      *}).then((response) => {...}) //response.data.data can be able to string | B | B[]
      */
-    send<T1, T2 = T1>(params: IOrmRequestParameter<T1>): Promise<import("axios").AxiosResponse<IResponse<T2>, any>>;
+    send<T1, T2 = T1>(params: IOrmRequestParameter<T1>): Promise<AxiosResponse<IResponse<T2>, any>>;
     private preparePathWithId;
     private search;
     private getById;
     private create;
     private update;
     private delete;
-    getProcessState(tenantId: string, entityId: string): Promise<import("axios").AxiosResponse<IResponse<IProcessState>, any>>;
-    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<import("axios").AxiosResponse<IWorkflowResponse, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<import("axios").AxiosResponse<IWorkflowInstance, any>>;
+    getProcessState(tenantId: string, entityId: string): Promise<AxiosResponse<IResponse<IProcessState>, any>>;
+    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<AxiosResponse<IWorkflowResponse, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<AxiosResponse<IWorkflowInstance, any>>;
 }
 export default CubekitOrmClient;
 //# sourceMappingURL=CubekitOrmClient.d.ts.map

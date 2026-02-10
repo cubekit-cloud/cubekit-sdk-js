@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
+import axios, { AxiosInstance, AxiosInterceptorOptions, AxiosResponse } from 'axios';
 import IOrmClientConfig from '../interfaces/Orm/IOrmClientConfig';
 import IOrmRequestParameter from '../interfaces/Orm/IOrmRequestParameter';
 import {
@@ -71,6 +71,24 @@ class CubekitOrmClient {
 	 */
 	public setAuthorizationHeader(value: string) {
 		this.axios.defaults.headers['Authorization'] = value;
+	}
+
+	/**
+	 * Set response interceptor
+	 * @method CubekitOrmClient~setResponseInterceptor
+	 *
+	 */
+	public setResponseInterceptor(
+		onFulfilled?:
+			| ((
+					value: AxiosResponse<any, any>
+			  ) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>)
+			| null
+			| undefined,
+		onRejected?: ((error: any) => any) | null,
+		options?: AxiosInterceptorOptions
+	) {
+		this.axios.interceptors.response.use(onFulfilled, onRejected, options);
 	}
 
 	/**
