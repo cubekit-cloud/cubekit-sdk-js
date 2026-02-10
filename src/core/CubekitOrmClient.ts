@@ -186,7 +186,8 @@ class CubekitOrmClient {
 
 	public startProcess(tenantId: string, workflowDefenitionId: string, entityId: string) {
 		return this.axios.post<IWorkflowResponse>(
-			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/defenitions/${workflowDefenitionId}/start/${entityId}`
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/defenitions/${workflowDefenitionId}/start/${entityId}`,
+			{}
 		);
 	}
 
