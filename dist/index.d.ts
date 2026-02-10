@@ -270,6 +270,83 @@ interface IMoveResponse extends IStorageResponse {
     data: IStorageFile;
 }
 
+interface IActionGroup {
+    id: string;
+    meta: any;
+    name: string;
+    workflow_step_id: string;
+}
+
+interface IStepLink {
+    id: string;
+    name: string;
+    order: number;
+}
+
+interface IDefinition {
+    id: string;
+    code: string;
+    name: string;
+}
+
+interface IProcessPayload {
+    result: string;
+}
+
+interface IProcessAction {
+    id: string;
+    name: string;
+    label: string;
+    action_type: string;
+}
+
+interface IProcessHistory {
+    type: string;
+    timestamp: Date;
+    step: IStepLink;
+    action: IProcessAction;
+    status: null | string;
+    user_id: null | string;
+    payload: IProcessPayload;
+    errors: any[];
+    transition_id: null | string;
+    from_step: IStepLink;
+    to_step: IStepLink;
+}
+
+interface IStep {
+    id: string;
+    name: string;
+    label: string;
+    action_type: string;
+    assignee_type: string;
+    status: string;
+    timestamp: null;
+    user_id: null;
+    payload: any[];
+    errors: any[];
+    workflow_action_group_id: string;
+}
+
+interface IWorkflowInstance {
+    id: string;
+    status: string;
+    workflow_definition_id: string;
+    initiator_id: string;
+    initiated_at: string;
+    current_step_id: string;
+}
+
+interface IProcessState {
+    workflow_instance: IWorkflowInstance;
+    definition: IDefinition;
+    current_step: IStepLink;
+    step_actions: IStep[];
+    allowed_actions: IStep[];
+    action_groups: IActionGroup[];
+    history: IProcessHistory[];
+}
+
 /**
  * @class
  * ```ts
@@ -337,6 +414,9 @@ declare class CubekitOrmClient {
     private create;
     private update;
     private delete;
+    getProcessState(tenantId: string, entityId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
+    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
 }
 //# sourceMappingURL=CubekitOrmClient.d.ts.map
 
