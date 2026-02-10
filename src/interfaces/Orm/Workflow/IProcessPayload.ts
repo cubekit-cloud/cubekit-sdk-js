@@ -1,3 +1,3 @@
-export interface IProcessPayload {
+export default interface IProcessPayload {
 	result: string;
 }

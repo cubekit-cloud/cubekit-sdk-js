@@ -7,6 +7,7 @@ import {
 	IOrmSearchOptions,
 	IOrmUpdateOptions,
 	IOrmDeleteOptions,
+	IWorkflowInstance,
 } from '../interfaces/Orm';
 import { RequestOrmMethodsEnum } from '../enums';
 import { WORKFLOW_URL } from '../config/const';
@@ -177,7 +178,7 @@ class CubekitOrmClient {
 		actionId: string,
 		data: any
 	) {
-		return this.axios.post<IResponse<IProcessState>>(
+		return this.axios.post<IWorkflowInstance>(
 			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instance/${workflowInstanceId}/actions/${actionId}/execute`,
 			data
 		);

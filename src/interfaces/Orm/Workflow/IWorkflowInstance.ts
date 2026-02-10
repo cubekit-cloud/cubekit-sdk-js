@@ -1,8 +1,8 @@
-import { IWorkflowData } from './IWorkflowData';
-import { IWorkflowDocumentInfo } from './IWorkflowDocumentInfo';
-import { IWorkflowInstanceMeta } from './IWorkflowInstanceMeta';
+import IWorkflowData from './IWorkflowData';
+import IWorkflowDocumentInfo from './IWorkflowDocumentInfo';
+import IWorkflowInstanceMeta from './IWorkflowInstanceMeta';
 
-export interface IWorkflowInstance {
+export default interface IWorkflowInstance {
 	id: string;
 	workflow_definition_id: string;
 	meta: IWorkflowInstanceMeta;
@@ -14,4 +14,5 @@ export interface IWorkflowInstance {
 	data: IWorkflowData;
 	updated_at: string;
 	created_at: string;
+	completed_at: string | null;
 }

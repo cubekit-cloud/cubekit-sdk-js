@@ -1,4 +1,4 @@
-export interface IWorkflowDefinition {
+export default interface IWorkflowDefinition {
 	id: string;
 	code: string;
 	name: string;

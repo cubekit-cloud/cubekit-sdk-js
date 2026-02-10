@@ -1,4 +1,4 @@
-export interface IWorkflowDocumentInfo {
+export default interface IWorkflowDocumentInfo {
 	x_api_key: string;
 	tenant_application_id: string;
 	tenant_application_name: string;

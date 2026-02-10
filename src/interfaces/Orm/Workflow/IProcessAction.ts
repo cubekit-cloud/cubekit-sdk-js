@@ -1,4 +1,4 @@
-export interface IProcessAction {
+export default interface IProcessAction {
 	id: string;
 	name: string;
 	label: string;

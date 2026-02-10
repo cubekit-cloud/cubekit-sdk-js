@@ -20,7 +20,21 @@ import IRelationship from './IRelationship';
 import IData from './IData';
 import IDataRelationships from './IDataRelationships';
 import IResponse from './response/IResponse';
+import IWorkflowResponse from './response/IWorkflowResponse';
 import IResponseMeta from './response/IResponseMeta';
+import IWorkflowProcessExecuteResponse from './response/IWorkflowProcessExecuteResponse';
+import IActionGroup from './Workflow/IActionGroup';
+import IProcessAction from './Workflow/IProcessAction';
+import IProcessHistory from './Workflow/IProcessHistory';
+import IProcessPayload from './Workflow/IProcessPayload';
+import IProcessState from './Workflow/IProcessState';
+import IStep from './Workflow/IStep';
+import IStepLink from './Workflow/IStepLink';
+import IWorkflowData from './Workflow/IWorkflowData';
+import IWorkflowDefinition from './Workflow/IWorkflowDefinition';
+import IWorkflowDocumentInfo from './Workflow/IWorkflowDocumentInfo';
+import IWorkflowInstance from './Workflow/IWorkflowInstance';
+import IWorkflowInstanceMeta from './Workflow/IWorkflowInstanceMeta';
 
 export type {
 	IOrmClientConfig,
@@ -46,4 +60,18 @@ export type {
 	IRelationships,
 	IDataRelationships,
 	IData,
+	IWorkflowResponse,
+	IActionGroup,
+	IProcessAction,
+	IProcessHistory,
+	IProcessPayload,
+	IProcessState,
+	IStep,
+	IStepLink,
+	IWorkflowData,
+	IWorkflowDefinition,
+	IWorkflowDocumentInfo,
+	IWorkflowInstance,
+	IWorkflowInstanceMeta,
+	IWorkflowProcessExecuteResponse,
 };
