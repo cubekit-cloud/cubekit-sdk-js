@@ -272,7 +272,7 @@ interface IMoveResponse extends IStorageResponse {
 
 interface IActionGroup {
     id: string;
-    meta: any;
+    meta: any | null;
     name: string;
     workflow_step_id: string;
 }
@@ -281,12 +281,6 @@ interface IStepLink {
     id: string;
     name: string;
     order: number;
-}
-
-interface IDefinition {
-    id: string;
-    code: string;
-    name: string;
 }
 
 interface IProcessPayload {
@@ -328,23 +322,142 @@ interface IStep {
     workflow_action_group_id: string;
 }
 
+interface IWorkflowDefinition {
+    id: string;
+    code: string;
+    name: string;
+    orm_status_field: string;
+    orm_meta_field: string;
+    orm_integration: ORMIntegration;
+}
+interface ORMIntegration {
+    x_api_key: string;
+    tenant_application_id: string;
+    tenant_application_name: string;
+    tenant_application_slug: string;
+    tenant_application_table: string;
+    tenant_application_model_id: string;
+}
+
+interface IWorkflowData {
+    definition: IWorkflowDefinition;
+    current_step_id: string;
+    steps: Record<string, WorkflowStep>;
+    history: IProcessHistory[];
+    status: string;
+    build_meta: BuildMeta;
+    document: DocumentData;
+    document_meta: DocumentMeta;
+}
+interface BuildMeta {
+    synced_at: string | null;
+}
+interface DocumentData {
+    id: string;
+    name: string;
+    price: number | null;
+    file: any | null;
+    description: string | null;
+    created_at: string;
+    updated_at: string | null;
+    deleted_at: string | null;
+    status: any | null;
+    meta: any | null;
+}
+interface DocumentMeta {
+    snapshot_at: string;
+    source: 'orm_http' | string;
+}
+interface WorkflowStep {
+    id: string;
+    name: string;
+    order: number;
+    auto_approve: boolean;
+    is_skippable_on_retry: boolean;
+    validations: any[];
+    actions: Record<string, WorkflowAction>;
+    transitions: Record<string, Transition>;
+    action_groups: IActionGroup[];
+}
+interface WorkflowAction {
+    build: ActionBuild;
+    state: ActionState;
+}
+interface ActionBuild {
+    id: string;
+    name: string;
+    label: string;
+    action_type: string;
+    assignee_type: string;
+    workflow_action_group_id: string;
+    assignee_value: string[];
+    condition_expression: ConditionExpression | any[];
+    appearance_expression: any[];
+    callback_timeout_minutes: number | null;
+}
+interface ConditionExpression {
+    [field: string]: string[];
+}
+interface ActionState {
+    status: string;
+    result: any | null;
+    timestamp: string | null;
+    user_id: string | null;
+    payload: any[];
+    errors: any[];
+}
+interface Transition {
+    id: string;
+    action_id: string;
+    from_step_id: string;
+    to_step_id: string;
+    is_default: boolean;
+    condition_expression: any | null;
+}
+
+interface IWorkflowDocumentInfo {
+    x_api_key: string;
+    tenant_application_id: string;
+    tenant_application_name: string;
+    tenant_application_slug: string;
+    tenant_application_table: string;
+    tenant_application_model_id: string;
+    tenant_id: string;
+    tenant_application_entity_id: string;
+    document_type: string;
+}
+
+interface IWorkflowInstanceMeta {
+    tenant_id: string;
+}
+
 interface IWorkflowInstance {
     id: string;
-    status: string;
     workflow_definition_id: string;
+    meta: IWorkflowInstanceMeta;
+    document: IWorkflowDocumentInfo;
+    status: string;
+    current_step_id: string;
     initiator_id: string;
     initiated_at: string;
-    current_step_id: string;
+    data: IWorkflowData;
+    updated_at: string;
+    created_at: string;
 }
 
 interface IProcessState {
-    workflow_instance: IWorkflowInstance;
-    definition: IDefinition;
+    workflow_instance: Pick<IWorkflowInstance, 'id' | 'status' | 'workflow_definition_id' | 'initiator_id' | 'initiated_at' | 'current_step_id'>;
+    definition: Pick<IWorkflowDefinition, 'id' | 'code' | 'name'>;
     current_step: IStepLink;
     step_actions: IStep[];
     allowed_actions: IStep[];
     action_groups: IActionGroup[];
     history: IProcessHistory[];
+}
+
+interface IWorkflowResponse {
+    status: string;
+    instance: IWorkflowInstance;
 }
 
 /**
@@ -415,8 +528,8 @@ declare class CubekitOrmClient {
     private update;
     private delete;
     getProcessState(tenantId: string, entityId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
-    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
+    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<axios.AxiosResponse<IWorkflowResponse, any>>;
+    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data: any): Promise<axios.AxiosResponse<IResponse<IProcessState>, any>>;
 }
 //# sourceMappingURL=CubekitOrmClient.d.ts.map
 

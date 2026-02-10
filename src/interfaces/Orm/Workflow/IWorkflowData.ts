@@ -1,6 +1,6 @@
-import { IActionGroup } from "../IActionGroup";
-import { IProcessHistory } from "../IProcessHistory";
-import { IWorkflowDefinition } from "./IWorkflowDefinition";
+import { IActionGroup } from './IActionGroup';
+import { IProcessHistory } from './IProcessHistory';
+import { IWorkflowDefinition } from './IWorkflowDefinition';
 
 export interface IWorkflowData {
 	definition: IWorkflowDefinition;

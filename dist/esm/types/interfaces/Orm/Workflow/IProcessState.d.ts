@@ -1,12 +1,12 @@
-import { IActionGroup } from "./IActionGroup";
+import { IActionGroup } from './IActionGroup';
 import { IStepLink } from './IStepLink';
-import { IDefinition } from "./IDefinition";
-import { IProcessHistory } from "./IProcessHistory";
-import { IStep } from "./IStep";
-import { IWorkflowInstance } from "./IWorkflowInstance";
+import { IProcessHistory } from './IProcessHistory';
+import { IStep } from './IStep';
+import { IWorkflowDefinition } from './IWorkflowDefinition';
+import { IWorkflowInstance } from './IWorkflowInstance';
 export default interface IProcessState {
-    workflow_instance: IWorkflowInstance;
-    definition: IDefinition;
+    workflow_instance: Pick<IWorkflowInstance, 'id' | 'status' | 'workflow_definition_id' | 'initiator_id' | 'initiated_at' | 'current_step_id'>;
+    definition: Pick<IWorkflowDefinition, 'id' | 'code' | 'name'>;
     current_step: IStepLink;
     step_actions: IStep[];
     allowed_actions: IStep[];
