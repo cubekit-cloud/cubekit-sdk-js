@@ -9,6 +9,8 @@ import {
 	IOrmDeleteOptions,
 } from '../interfaces/Orm';
 import { RequestOrmMethodsEnum } from '../enums';
+import { WORKFLOW_URL } from '../config/const';
+import IProcessState from '../interfaces/Orm/Workflow/IProcessState';
 
 const ID_SPOT = '{key}';
 
@@ -37,7 +39,7 @@ class CubekitOrmClient {
 				['x-api-key']: config.serviceKey,
 			},
 		});
-	};
+	}
 
 	/**
 	 * Set new configuration
@@ -55,7 +57,7 @@ class CubekitOrmClient {
 	public setConfig(config: IOrmClientConfig) {
 		this.axios.defaults.baseURL = config.baseUrl;
 		this.axios.defaults.headers['x-api-key'] = config.serviceKey;
-	};
+	}
 
 	/**
 	 * Set authorization header
@@ -67,7 +69,7 @@ class CubekitOrmClient {
 	 */
 	public setAuthorizationHeader(value: string) {
 		this.axios.defaults.headers['Authorization'] = value;
-	};
+	}
 
 	/**
 	 * Send request to API cubkit.com with params.
@@ -102,7 +104,7 @@ class CubekitOrmClient {
 			default:
 				return this.search<T1, T2>(params);
 		}
-	};
+	}
 
 	private preparePathWithId(path: string, id: string) {
 		if (path.indexOf(ID_SPOT) > -1) {
@@ -154,6 +156,24 @@ class CubekitOrmClient {
 		return this.axios.delete<IResponse<T2>>(this.preparePathWithId(params.path, options.id), {
 			data: params.options,
 		});
+	}
+
+	public getProcessState(tenantId: string, entityId: string) {
+		return this.axios.get<IResponse<IProcessState>>(
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/entities/${entityId}/widget_state`
+		);
+	}
+
+	public startProcess(tenantId: string, workflowDefenitionId: string, entityId: string) {
+		return this.axios.post<IResponse<IProcessState>>(
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/defenitions/${workflowDefenitionId}/start/${entityId}`
+		);
+	}
+
+	public executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string) {
+		return this.axios.post<IResponse<IProcessState>>(
+			`${WORKFLOW_URL}/api/v1.0/workflow/tenants/${tenantId}/instance/${workflowInstanceId}/actions/${actionId}/execute`
+		);
 	}
 }
 
