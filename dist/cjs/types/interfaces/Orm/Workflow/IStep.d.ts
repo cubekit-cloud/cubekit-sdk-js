@@ -3,7 +3,10 @@ export default interface IStep {
     name: string;
     label: string;
     action_type: string;
-    assignee_type: string;
+    assignee_type: 'user' | 'expression';
+    assignee_value: string[] | {
+        [key: string]: any;
+    };
     status: string;
     timestamp: null;
     user_id: null;

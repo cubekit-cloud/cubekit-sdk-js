@@ -9,7 +9,7 @@ export default interface IProcessState {
     definition: Pick<IWorkflowDefinition, 'id' | 'code' | 'name'>;
     current_step: IStepLink;
     step_actions: IStep[];
-    allowed_actions: Pick<IStep, "id" | "label" | "name" | "action_type">[];
+    allowed_actions: Pick<IStep, 'id' | 'label' | 'name' | 'action_type' | 'assignee_value'>[];
     action_groups: IActionGroup[];
     history: IProcessHistory[];
 }
