@@ -4,7 +4,7 @@ import IStepLink from './IStepLink';
 
 export default interface IProcessHistory {
 	type: string;
-	timestamp: Date;
+	timestamp: string;
 	step: IStepLink;
 	action: IProcessAction;
 	status: null | string;

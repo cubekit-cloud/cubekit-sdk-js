@@ -252,7 +252,7 @@ interface IStepLink {
 
 interface IProcessHistory {
     type: string;
-    timestamp: Date;
+    timestamp: string;
     step: IStepLink;
     action: IProcessAction;
     status: null | string;
