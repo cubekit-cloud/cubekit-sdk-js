@@ -3,4 +3,6 @@ export default interface IProcessAction {
 	name: string;
 	label: string;
 	action_type: string;
+	assignee_type: 'user' | 'expression';
+	assignee_value: string[] | { [key: string]: any };
 }
