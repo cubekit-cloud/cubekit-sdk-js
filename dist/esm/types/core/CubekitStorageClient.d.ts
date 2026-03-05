@@ -114,7 +114,15 @@ declare class CubekitStorageClient {
      *
      *storageClient.download();
      */
-    download(path: string, objects: string[]): Promise<import("axios").AxiosResponse<any, any>>;
+    download(path: string): Promise<import("axios").AxiosResponse<any, any>>;
+    /**
+     * Bulk download objects
+     * @method CubekitStorageClient.bulkDownload
+     * @example
+     *
+     *storageClient.bulkDownload();
+     */
+    bulkDownload(path: string, objects: string[]): Promise<import("axios").AxiosResponse<any, any>>;
 }
 export default CubekitStorageClient;
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
