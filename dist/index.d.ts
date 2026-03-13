@@ -325,7 +325,7 @@ interface WorkflowStep {
 }
 interface WorkflowAction {
     build: ActionBuild;
-    state: ActionState;
+    state: IActionState;
 }
 interface ActionBuild {
     id: string;
@@ -342,7 +342,7 @@ interface ActionBuild {
 interface ConditionExpression {
     [field: string]: string[];
 }
-interface ActionState {
+interface IActionState {
     status: string;
     result: any | null;
     timestamp: string | null;
@@ -416,11 +416,13 @@ interface IStep {
         [key: string]: any;
     };
     status: string;
+    mode: string;
     timestamp: null;
     user_id: null;
     payload: any[];
     errors: any[];
     workflow_action_group_id: string;
+    executions?: IActionState[];
 }
 
 interface IProcessState {

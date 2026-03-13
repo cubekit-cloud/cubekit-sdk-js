@@ -49,7 +49,7 @@ interface WorkflowStep {
 
 interface WorkflowAction {
 	build: ActionBuild;
-	state: ActionState;
+	state: IActionState;
 }
 
 interface ActionBuild {
@@ -69,7 +69,7 @@ interface ConditionExpression {
 	[field: string]: string[];
 }
 
-interface ActionState {
+export interface IActionState {
 	status: string;
 	result: any | null;
 	timestamp: string | null;
