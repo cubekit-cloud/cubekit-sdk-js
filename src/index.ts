@@ -3,5 +3,6 @@ export * from './interfaces/Storage';
 export * from './enums';
 import CubekitOrmClient from './core/CubekitOrmClient';
 import CubekitStorageClient from './core/CubekitStorageClient';
+export { toSearchSugarRelationships } from './utils/toSearchSugarRelationships';
 
 export { CubekitOrmClient, CubekitStorageClient };
