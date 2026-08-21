@@ -134,10 +134,17 @@ interface IOrderParameter<T> {
     null_position?: OrderNullPositionsEnum;
 }
 
+/**
+ * Read-side relation include (wire: RelationSpecRequest).
+ * Parity with itaces-crud: select / where / order / pivot.
+ * Nested `relationships` inside a relation is not part of the contract.
+ */
 interface IRelationship<T> {
     select?: ISelectParameter<T>[];
     where?: IWhereParameter<T>[];
     order?: IOrderParameter<T>[];
+    /** Pivot columns for BELONGS_TO_MANY (JSON key `pivot`). */
+    pivot?: string[];
 }
 
 interface IRelationships<T> {
@@ -686,4 +693,16 @@ declare class CubekitStorageClient {
 }
 //# sourceMappingURL=CubekitStorageClient.d.ts.map
 
-export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IActionGroup, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IProcessAction, IProcessHistory, IProcessPayload, IProcessState, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStep, IStepLink, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IWorkflowData, IWorkflowDefinition, IWorkflowDocumentInfo, IWorkflowInstance, IWorkflowInstanceMeta, IWorkflowProcessExecuteResponse, IWorkflowResponse, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum };
+/**
+ * Opt-in EMPTY sugar for SEARCH/index `relationships`.
+ *
+ * Maps each top-level relation name to `{}` (all exposed fields of the target).
+ * Strips `select` / `where` / `order` / `pivot` and drops nested `relationships`
+ * (backend RelationSpec is depth-1 only).
+ *
+ * Does not change SDK clients by default — call explicitly before wire send
+ * when the edge requires sugar-only bodies.
+ */
+declare function toSearchSugarRelationships<T = Record<string, unknown>>(relationships: IRelationships<T> | Record<string, unknown> | undefined): IRelationships<T> | undefined;
+
+export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IActionGroup, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IProcessAction, IProcessHistory, IProcessPayload, IProcessState, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStep, IStepLink, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IWorkflowData, IWorkflowDefinition, IWorkflowDocumentInfo, IWorkflowInstance, IWorkflowInstanceMeta, IWorkflowProcessExecuteResponse, IWorkflowResponse, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum, toSearchSugarRelationships };
