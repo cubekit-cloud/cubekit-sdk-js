@@ -1,4 +1,4 @@
-import { toSearchSugarRelationships } from "./toSearchSugarRelationships";
+﻿import { toSearchSugarRelationships } from "./toSearchSugarRelationships";
 
 describe("toSearchSugarRelationships", () => {
 	it("returns undefined for empty input", () => {

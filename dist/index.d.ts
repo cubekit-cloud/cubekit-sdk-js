@@ -1,6 +1,4 @@
-import * as axios from 'axios';
-import { AxiosResponse, AxiosInterceptorOptions, AxiosProgressEvent, GenericAbortSignal, InternalAxiosRequestConfig } from 'axios';
-export { AxiosError, AxiosProgressEvent, InternalAxiosRequestConfig } from 'axios';
+import { AxiosInstance, AxiosResponse, AxiosInterceptorOptions, AxiosAdapter } from 'axios';
 
 declare enum RelationsModesEnum {
     SYNC = "sync",
@@ -15,6 +13,8 @@ declare enum AggregationsEnum {
     MAX = "max"
 }
 declare enum OperatorsEnum {
+    /** Join ON operator (itaces-crud SEARCH join[]). */
+    EQ = "EQ",
     EQUAL = "=",
     INEQUAL = "!=",
     LIKE = "like",
@@ -165,8 +165,11 @@ interface IOrmSearchOptions<T> {
 }
 
 interface IOrmClientConfig {
-    baseUrl: string;
-    serviceKey: string;
+    baseUrl?: string;
+    baseURL?: string;
+    serviceKey?: string;
+    apiPrefix?: string;
+    withCredentials?: boolean;
 }
 
 interface IDataRelationships {
@@ -229,470 +232,6 @@ interface IResponse<T> {
     data: string | T | T[];
 }
 
-interface IActionGroup {
-    id: string;
-    meta: any | null;
-    name: string;
-    workflow_step_id: string;
-}
-
-interface IProcessPayload {
-    result: string;
-}
-
-interface IProcessAction {
-    id: string;
-    name: string;
-    label: string;
-    action_type: string;
-    assignee_type: 'user' | 'expression';
-    assignee_value: string[] | {
-        [key: string]: any;
-    };
-}
-
-interface IStepLink {
-    id: string;
-    name: string;
-    order: number;
-}
-
-interface IProcessHistory {
-    type: string;
-    timestamp: string;
-    step: IStepLink;
-    action: IProcessAction;
-    status: null | string;
-    user_id: null | string;
-    payload: IProcessPayload;
-    errors: any[];
-    transition_id: null | string;
-    from_step?: IStepLink;
-    from_step_id?: string;
-    to_step?: IStepLink;
-    to_step_id?: string;
-}
-
-interface IWorkflowDefinition {
-    id: string;
-    code: string;
-    name: string;
-    orm_status_field: string;
-    orm_meta_field: string;
-    orm_integration: ORMIntegration;
-}
-interface ORMIntegration {
-    x_api_key: string;
-    tenant_application_id: string;
-    tenant_application_name: string;
-    tenant_application_slug: string;
-    tenant_application_table: string;
-    tenant_application_model_id: string;
-}
-
-interface IWorkflowData {
-    definition: IWorkflowDefinition;
-    current_step_id: string;
-    steps: Record<string, WorkflowStep>;
-    history: IProcessHistory[];
-    status: string;
-    build_meta: BuildMeta;
-    document: DocumentData;
-    document_meta: DocumentMeta;
-}
-interface BuildMeta {
-    synced_at: string | null;
-}
-interface DocumentData {
-    id: string;
-    name: string;
-    price: number | string | null;
-    file: any | null;
-    description: string | null;
-    created_at: string;
-    updated_at: string | null;
-    deleted_at: string | null;
-    status: any | null;
-    meta: any | null;
-}
-interface DocumentMeta {
-    snapshot_at: string;
-    source: 'orm_http' | string;
-}
-interface WorkflowStep {
-    id: string;
-    name: string;
-    order: number;
-    auto_approve: boolean;
-    is_skippable_on_retry: boolean;
-    validations: any[];
-    actions: Record<string, WorkflowAction>;
-    transitions: Record<string, Transition>;
-    action_groups: IActionGroup[];
-}
-interface WorkflowAction {
-    build: ActionBuild;
-    state: IActionState;
-}
-interface ActionBuild {
-    id: string;
-    name: string;
-    label: string;
-    action_type: string;
-    assignee_type: string;
-    workflow_action_group_id: string;
-    assignee_value: string[];
-    condition_expression: ConditionExpression | any[];
-    appearance_expression: any[];
-    callback_timeout_minutes: number | null;
-}
-interface ConditionExpression {
-    [field: string]: string[];
-}
-interface IActionState {
-    status: string;
-    result: any | null;
-    timestamp: string | null;
-    user_id: string | null;
-    payload: any;
-    errors: any[];
-}
-interface Transition {
-    id: string;
-    action_id: string;
-    from_step_id: string;
-    to_step_id: string;
-    is_default: boolean;
-    condition_expression: any | null;
-}
-
-interface IWorkflowDocumentInfo {
-    x_api_key: string;
-    tenant_application_id: string;
-    tenant_application_name: string;
-    tenant_application_slug: string;
-    tenant_application_table: string;
-    tenant_application_model_id: string;
-    tenant_id: string;
-    tenant_application_entity_id: string;
-    document_type: string;
-}
-
-interface IWorkflowInstanceMeta {
-    tenant_id: string;
-}
-
-interface IWorkflowInstance {
-    id: string;
-    workflow_definition_id: string;
-    meta: IWorkflowInstanceMeta;
-    document: IWorkflowDocumentInfo;
-    status: string;
-    current_step_id: string;
-    initiator_id: string;
-    initiated_at: string;
-    data: IWorkflowData;
-    updated_at: string;
-    created_at: string;
-    completed_at: string | null;
-}
-
-interface IWorkflowResponse {
-    status: string;
-    instance: IWorkflowInstance;
-}
-
-interface IWorkflowProcessExecuteResponse {
-    status: string;
-    code: number;
-    message: string;
-    data: any | null;
-    error: {
-        [key: string]: string[];
-    };
-    meta: any | null;
-}
-
-interface IStep {
-    id: string;
-    name: string;
-    label: string;
-    action_type: string;
-    assignee_type: 'user' | 'expression';
-    assignee_value: string[] | {
-        [key: string]: any;
-    };
-    status: string;
-    mode: string;
-    timestamp: null;
-    user_id: null;
-    payload: any[];
-    errors: any[];
-    workflow_action_group_id: string;
-    executions?: IActionState[];
-}
-
-interface IProcessState {
-    workflow_instance: Pick<IWorkflowInstance, 'id' | 'status' | 'workflow_definition_id' | 'initiator_id' | 'initiated_at' | 'current_step_id'>;
-    definition: Pick<IWorkflowDefinition, 'id' | 'code' | 'name'>;
-    current_step: IStepLink;
-    step_actions: IStep[];
-    allowed_actions: Pick<IStep, 'id' | 'label' | 'name' | 'action_type' | 'assignee_value' | 'assignee_type' | 'workflow_action_group_id'>[];
-    action_groups: IActionGroup[];
-    history: IProcessHistory[];
-}
-
-interface IStorageClientConfig {
-    baseUrl: string;
-    serviceKey: string;
-}
-
-interface IFolderInTree {
-    name: string;
-    path: string;
-    children: IFolderInTree[];
-}
-
-interface IStorageFile {
-    bucket_name: string;
-    object_name: string;
-    full_name: string;
-    updated_at: string | null;
-    is_dir: boolean;
-    size: number | null;
-    url: string;
-}
-
-interface IStorageResponse {
-    code: number;
-    status: string;
-    timestamp: string;
-    message: string;
-}
-
-interface IGetFolderTreeResponse extends IStorageResponse {
-    data: IFolderInTree[];
-}
-
-interface ICreateDirectoryResponse extends IStorageResponse {
-    data: IStorageFile;
-}
-
-interface IViewResponse extends IStorageResponse {
-    data: IStorageFile[];
-}
-
-interface IUploadFileResponse extends IStorageResponse {
-    data: IStorageFile[];
-}
-
-interface IMoveResponse extends IStorageResponse {
-    data: IStorageFile;
-}
-
-/**
- * @class
- * ```ts
-    // CubekitOrmClient is needed for working with auto generated ORM API
-    import { IOrmClientConfig, CubekitOrmClient } from '@cubekit-cloud/cubekit-sdk-js';
-    // You can get your configuration from your application page.
-    const config: IOrmClientConfig = {
-        baseUrl: 'url';
-        serviceKey: 'key';
-    };
-    const ormClient = new CubekitOrmClient(config);
-    ormClient.send({...});
-* ```
-*/
-declare class CubekitOrmClient {
-    private axios;
-    constructor(config: IOrmClientConfig);
-    /**
-     * Set new configuration
-     * @function setConfig
-     * @method CubekitOrmClient~setConfig
-     * @param {IOrmClientConfig} config - an object with new configuration
-     * @example
-     *const config: IOrmClientConfig = {
-     *  baseUrl: '/';
-     *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
-     *}
-     *
-     *ormClient.setConfig(config);
-     */
-    setConfig(config: IOrmClientConfig): void;
-    /**
-     * Set authorization header
-     * @method CubekitOrmClient~setAuthorizationHeader
-     * @param {string} value - a string with auth data
-     * @example
-     *
-     *ormClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
-     */
-    setAuthorizationHeader(value: string): void;
-    /**
-     * Set response interceptor
-     * @method CubekitOrmClient~setResponseInterceptor
-     *
-     */
-    setResponseInterceptor(onFulfilled?: ((value: AxiosResponse<any, any>) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>) | null | undefined, onRejected?: ((error: any) => any) | null, options?: AxiosInterceptorOptions): void;
-    /**
-     * Send request to API cubkit.com with params.
-     * @method CubekitOrmClient~send
-     * @param {IOrmRequestParameter<T>} params - A generic object containing all the necessary parameters for successful request.
-     * @param {string} params.path Path to a exactly model in your application. It can be got from documentation on main page of your application.
-     * @param {RequestOrmMethodsEnum} params.method Request type.
-     * @param {ISearchOptions<T> | IGetByIdOptions<T> | ICreateOptions<T> | IUpdateOptions<T> | IDeleteOptions} params.options Data to be sent.
-     * @return {Promise<AxiosResponse<IResponse<T2>, any>>}
-     * @example
-     *interface A {
-     *	id: string;
-     *}
-     *interface B extends A {
-     *	name: string;
-     *}
-     *ormClient.send<A, A>({
-     *}).then((response) => {...}) //response.data.data can be able to string | A | A[]
-     *ormClient.send<A, B>({
-     *}).then((response) => {...}) //response.data.data can be able to string | B | B[]
-     */
-    send<T1, T2 = T1>(params: IOrmRequestParameter<T1>): Promise<AxiosResponse<IResponse<T2>, any>>;
-    private preparePathWithId;
-    private search;
-    private getById;
-    private create;
-    private update;
-    private delete;
-    getProcessState(tenantId: string, entityId: string): Promise<AxiosResponse<IResponse<IProcessState>, any>>;
-    startProcess(tenantId: string, workflowDefenitionId: string, entityId: string): Promise<AxiosResponse<IWorkflowResponse, any>>;
-    executeProcessAction(tenantId: string, workflowInstanceId: string, actionId: string, data?: any): Promise<AxiosResponse<IWorkflowInstance, any>>;
-}
-//# sourceMappingURL=CubekitOrmClient.d.ts.map
-
-/**
- * @class
- * ```ts
-    // CubekitStorageClient is needed for working with auto generated Storage API
-    import { IStorageClientConfig, CubekitStorageClient } from '@cubekit-cloud/cubekit-sdk-js';
-    // You can get your configuration from your application page.
-    const config: IStorageClientConfig = {
-        baseUrl: 'url';
-        serviceKey: 'key';
-        storageId: 'id';
-    };
-    const storageClient = new CubekitStorageClient(config);
-    storageClient.upload({...});
-* ```
-*/
-declare class CubekitStorageClient {
-    private axios;
-    constructor(config: IStorageClientConfig);
-    /**
-     * Set new configuration
-     * @method CubekitStorageClient.setConfig
-     * @param {IStorageClientConfig} config - an object with new configuration
-     * @example
-     *const config: IStorageClientConfig = {
-     *  baseUrl: '/';
-     *  serviceKey: 'xxxx-xxxx-xxxx-xxxx';
-     *  storageId: 'xxxx-xxxx-xxxx-xxxx';
-     *}
-     *
-     *storageClient.setConfig(config);
-     */
-    setConfig(config: IStorageClientConfig): void;
-    /**
-     * Set authorization header
-     * @method CubekitStorageClient.setAuthorizationHeader
-     * @param {string} value - a string with auth data
-     * @example
-     *
-     *storageClient.setAuthorizationHeader('Basic YWxhZGRpbjpvcGVuc2VzYW1l');
-     */
-    setAuthorizationHeader(value: string): void;
-    /**
-     * Get folder tree
-     * @method CubekitStorageClient.getFolderTree
-     * @example
-     *
-     *storageClient.getFolderTree();
-     */
-    getFolderTree(path?: string): Promise<IFolderInTree[]>;
-    /**
-     * Get avaliable folders and files
-     * @method CubekitStorageClient.view
-     * @example
-     *
-     *storageClient.view();
-     */
-    view(path?: string, order_by?: string, order?: string, filter_by?: string, filter?: string): Promise<IStorageFile[]>;
-    /**
-     * Create directory
-     * @method CubekitStorageClient.createDirectory
-     * @example
-     *
-     *storageClient.createDirectory();
-     */
-    createDirectory(path: string): Promise<ICreateDirectoryResponse>;
-    /**
-     * Delete directory or file
-     * @method CubekitStorageClient.delete
-     * @example
-     *
-     *storageClient.delete();
-     */
-    delete(paths: string[]): Promise<any>;
-    /**
-     * Upload file (with a require file name)
-     * @method CubekitStorageClient.upload
-     * @example
-     *
-     *storageClient.upload();
-     */
-    upload(path: string, files: File[], onUploadProgress?: (progressEvent: AxiosProgressEvent) => void, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
-    /**
-     * Resend request
-     * @method CubekitStorageClient.resend
-     * @example
-     *
-     *storageClient.resend();
-     */
-    resend(config: InternalAxiosRequestConfig): Promise<any>;
-    /**
-     * Simple upload file (without file name)
-     * @method CubekitStorageClient.simpleUpload
-     * @example
-     *
-     *storageClient.simpleUpload();
-     */
-    simpleUpload(path: string, files: File[], onUploadProgress: ((progressEvent: AxiosProgressEvent) => void) | undefined, signal?: GenericAbortSignal): Promise<IUploadFileResponse>;
-    /**
-     * Move directory or file
-     * @method CubekitStorageClient.move
-     * @example
-     *
-     *storageClient.move();
-     */
-    move(source: string, target: string): Promise<IMoveResponse>;
-    /**
-     * Download objects
-     * @method CubekitStorageClient.download
-     * @example
-     *
-     *storageClient.download();
-     */
-    download(path: string): Promise<axios.AxiosResponse<any, any>>;
-    /**
-     * Bulk download objects
-     * @method CubekitStorageClient.bulkDownload
-     * @example
-     *
-     *storageClient.bulkDownload();
-     */
-    bulkDownload(path: string, objects: string[]): Promise<axios.AxiosResponse<any, any>>;
-}
-//# sourceMappingURL=CubekitStorageClient.d.ts.map
-
 /**
  * Opt-in EMPTY sugar for SEARCH/index `relationships`.
  *
@@ -705,4 +244,232 @@ declare class CubekitStorageClient {
  */
 declare function toSearchSugarRelationships<T = Record<string, unknown>>(relationships: IRelationships<T> | Record<string, unknown> | undefined): IRelationships<T> | undefined;
 
-export { AggregationsEnum, CubekitOrmClient, CubekitStorageClient, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, IActionGroup, ICreateDirectoryResponse, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IFolderInTree, IGetFolderTreeResponse, IJoinOnParameter, IJoinParameter, IMoveResponse, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IProcessAction, IProcessHistory, IProcessPayload, IProcessState, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IStep, IStepLink, IStorageClientConfig, IStorageFile, IStorageResponse, IUploadFileResponse, IViewResponse, IWhereParameter, IWorkflowData, IWorkflowDefinition, IWorkflowDocumentInfo, IWorkflowInstance, IWorkflowInstanceMeta, IWorkflowProcessExecuteResponse, IWorkflowResponse, IXlsxExportSettings, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum, toSearchSugarRelationships };
+/**
+ * Depth-1 RelationSpec for SEARCH wire.
+ * Keeps EMPTY `{}` and RelSpec fields (select/where/order/pivot).
+ * Nested `relationships` are dropped, not sent.
+ */
+declare function normalizeSearchRelationships(relationships: Record<string, unknown> | undefined): Record<string, Record<string, unknown>> | undefined;
+
+/** Minimal schema contract — Zod and passthrough both satisfy this. */
+type ItemSchema<T> = {
+    safeParse(data: unknown): {
+        success: true;
+        data: T;
+    } | {
+        success: false;
+        error: {
+            message: string;
+        };
+    };
+};
+/** Identity schema when the caller does not want Zod. */
+declare const passthroughItemSchema: ItemSchema<unknown>;
+declare function parseResponse<T>(schema: ItemSchema<T> | undefined, data: unknown, context: string): T;
+
+type WhereClause = {
+    column: string;
+    value?: string | number | boolean | null;
+    operator?: string;
+    boolean?: 'and' | 'or';
+    type?: string;
+    group?: WhereClause[];
+    value_type?: string;
+};
+type OrderClause = {
+    column: string;
+    direction?: 'asc' | 'desc';
+    null_position?: 'first' | 'last';
+};
+type SelectClause = {
+    column: string;
+    aggregation?: string;
+    alias?: string;
+};
+type JoinOnClause = {
+    column?: string;
+    left?: string;
+    operator?: string;
+    value?: string | number | boolean;
+    right?: string;
+};
+type JoinClause = {
+    table?: string;
+    type?: string;
+    on?: JoinOnClause[];
+    where?: WhereClause[];
+};
+/** POST …/search body (IndexRequest wire, snake_case). Sparse: omit unused keys. */
+type IndexRequestBody = {
+    select?: SelectClause[];
+    where?: WhereClause[];
+    join?: JoinClause[];
+    order?: OrderClause[];
+    group_by?: string[];
+    relationships?: Record<string, unknown>;
+    return?: string | Record<string, unknown>;
+    debug?: boolean;
+};
+type PageParams = {
+    page: number;
+    limit: number;
+};
+type SearchResult<T> = {
+    items: T[];
+    total: number;
+    page: PageParams;
+};
+type StoreBody = {
+    data: {
+        fields: Record<string, unknown>;
+        relationships?: Record<string, unknown>;
+    };
+    select?: SelectClause[];
+    relationships?: Record<string, unknown>;
+    debug?: boolean;
+};
+type UpdateBody = StoreBody;
+type CrudMethod = 'SEARCH' | 'SHOW' | 'STORE' | 'PATCH' | 'PUT' | 'DESTROY';
+type FormatClientAuth = {
+    type: 'apiKey';
+    value: string;
+} | {
+    type: 'cookie';
+};
+type FormatClientConfig = {
+    http?: AxiosInstance;
+    baseURL?: string;
+    /** @deprecated use baseURL */
+    baseUrl?: string;
+    apiPrefix?: string;
+    headers?: Record<string, string>;
+    withCredentials?: boolean;
+    /** x-api-key when not using inject http. */
+    serviceKey?: string;
+    auth?: FormatClientAuth;
+};
+/** @deprecated use FormatClientConfig */
+type CrudClientConfig = FormatClientConfig;
+type ResourceRef = {
+    resource?: string;
+    /** Full collection path; ignores apiPrefix+resource when set. */
+    path?: string;
+};
+
+/** itaces-crud join ON operator (CUBV2-610). */
+declare const JOIN_OPERATOR_EQ: "EQ";
+/** Default missing join.on.operator to EQ. Does not invent join[] when absent. */
+declare function normalizeJoin(join: JoinClause[] | undefined): JoinClause[] | undefined;
+
+/** Read snapshot table name from an OpenAPI schema object (`x-orm-tableName`). */
+declare function readOrmTableName(schema: unknown): string | undefined;
+/** Collection path from a POST …/search OpenAPI path. */
+declare function collectionPathFromSearchPath(searchPath: string): string | undefined;
+/**
+ * Resolve a resource collection path from OpenAPI paths keys.
+ * Prefers an exact `POST {base}/search` whose last segment equals `resourceName`.
+ */
+declare function resourcePathFromOpenApi(doc: unknown, resourceName: string): string | undefined;
+
+type ApiResponseEnvelope = {
+    status: 'success' | 'error';
+    code?: string | number;
+    message?: string;
+    data?: unknown;
+    meta?: {
+        pagination?: {
+            current_page?: number;
+            last_page?: number;
+            per_page?: number;
+            total?: number;
+        };
+        total?: number;
+    } | null;
+    errors?: unknown[];
+};
+declare class ApiClientError extends Error {
+    readonly context: string;
+    readonly code?: string | number | undefined;
+    readonly errors?: unknown[] | undefined;
+    readonly status?: number | undefined;
+    constructor(message: string, context: string, code?: string | number | undefined, errors?: unknown[] | undefined, status?: number | undefined);
+}
+/** Parse itaces-crud envelope; throw on error status. */
+declare function parseApiEnvelope(raw: unknown, context: string, httpStatus?: number): ApiResponseEnvelope;
+declare function extractSearchItems(data: unknown): unknown[];
+declare function extractSearchTotal(envelope: ApiResponseEnvelope, itemCount: number): number;
+
+/**
+ * itaces-crud format client (search/get/create/update/delete).
+ * Transport is config (`baseURL`, cookie / x-api-key, or injected axios).
+ */
+declare class FormatClient {
+    #private;
+    readonly http: AxiosInstance;
+    constructor(config?: FormatClientConfig);
+    get apiPrefix(): string;
+    setConfig(patch: Pick<FormatClientConfig, 'baseURL' | 'baseUrl' | 'apiPrefix' | 'headers' | 'serviceKey'>): void;
+    setAuthorizationHeader(value: string): void;
+    setResponseInterceptor(onFulfilled?: ((value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>) | null, onRejected?: ((error: unknown) => unknown) | null, options?: AxiosInterceptorOptions): number;
+    collectionPath(ref: ResourceRef): string;
+    search<T>(ref: ResourceRef, itemSchema?: ItemSchema<T>, body?: IndexRequestBody, page?: PageParams, context?: string): Promise<SearchResult<T>>;
+    show<T>(ref: ResourceRef, id: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
+    /** GET an exact path (`/me`, OpenAPI item path). */
+    getPath<T>(path: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
+    /** Alias of show — REST GET by id. */
+    get<T>(ref: ResourceRef, id: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
+    store<T>(ref: ResourceRef, itemSchema: ItemSchema<T> | undefined, fields: Record<string, unknown>, options?: {
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+    }, context?: string): Promise<T>;
+    create<T>(ref: ResourceRef, itemSchema: ItemSchema<T> | undefined, fields: Record<string, unknown>, options?: {
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+    }, context?: string): Promise<T>;
+    patch<T>(ref: ResourceRef, id: string, itemSchema: ItemSchema<T> | undefined, fields: Record<string, unknown>, options?: {
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+    }, context?: string): Promise<T>;
+    put<T>(ref: ResourceRef, id: string, itemSchema: ItemSchema<T> | undefined, fields: Record<string, unknown>, options?: {
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+    }, context?: string): Promise<T>;
+    update<T>(ref: ResourceRef, id: string, itemSchema: ItemSchema<T> | undefined, fields: Record<string, unknown>, options?: {
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+    }, context?: string): Promise<T>;
+    destroy(ref: ResourceRef, id: string, context?: string): Promise<void>;
+    delete(ref: ResourceRef, id: string, context?: string): Promise<void>;
+    loadOpenApi(docsPath?: string): Promise<unknown>;
+    send<T>(params: {
+        method: CrudMethod;
+        resource?: string;
+        path?: string;
+        schema?: ItemSchema<T>;
+        id?: string;
+        body?: IndexRequestBody;
+        fields?: Record<string, unknown>;
+        page?: PageParams;
+        select?: SelectClause[];
+        relationships?: Record<string, unknown>;
+        debug?: boolean;
+        context?: string;
+    }): Promise<SearchResult<T> | T | void>;
+}
+/** @deprecated use FormatClient */
+type CrudClient = FormatClient;
+declare function createFormatClient(config?: FormatClientConfig): FormatClient;
+/** @deprecated use createFormatClient */
+declare function createCrudClient(config?: FormatClientConfig): FormatClient;
+
+/**
+ * Axios adapter over `fetch` so the same client works in Node/SSR and tests that stub fetch.
+ */
+declare const fetchAxiosAdapter: AxiosAdapter;
+
+export { AggregationsEnum, ApiClientError, ApiResponseEnvelope, CrudClient, CrudClientConfig, CrudMethod, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, FormatClient, FormatClientAuth, FormatClientConfig, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IJoinOnParameter, IJoinParameter, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IWhereParameter, IXlsxExportSettings, IndexRequestBody, ItemSchema, JOIN_OPERATOR_EQ, JoinClause, JoinOnClause, JoinTypesEnum, OperatorsEnum, OrderClause, OrderDirectionsEnum, OrderNullPositionsEnum, PageParams, RelationsModesEnum, RequestOrmMethodsEnum, ResourceRef, ResponseTypeEnum, SearchResult, SelectClause, StoreBody, UpdateBody, WhereClause, collectionPathFromSearchPath, createCrudClient, createFormatClient, extractSearchItems, extractSearchTotal, fetchAxiosAdapter, normalizeJoin, normalizeSearchRelationships, parseApiEnvelope, parseResponse, passthroughItemSchema, readOrmTableName, resourcePathFromOpenApi, toSearchSugarRelationships };

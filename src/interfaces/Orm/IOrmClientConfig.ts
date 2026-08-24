@@ -1,4 +1,7 @@
 export default interface IOrmClientConfig {
-	baseUrl: string;
-	serviceKey: string;
+	baseUrl?: string;
+	baseURL?: string;
+	serviceKey?: string;
+	apiPrefix?: string;
+	withCredentials?: boolean;
 }

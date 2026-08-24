@@ -11,6 +11,8 @@ export declare enum AggregationsEnum {
     MAX = "max"
 }
 export declare enum OperatorsEnum {
+    /** Join ON operator (itaces-crud SEARCH join[]). */
+    EQ = "EQ",
     EQUAL = "=",
     INEQUAL = "!=",
     LIKE = "like",

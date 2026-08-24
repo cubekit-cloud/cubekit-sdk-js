@@ -13,6 +13,8 @@ export enum AggregationsEnum {
 }
 
 export enum OperatorsEnum {
+    /** Join ON operator (itaces-crud SEARCH join[]). */
+    EQ = 'EQ',
     EQUAL = '=',
     INEQUAL = '!=',
     LIKE = 'like',
