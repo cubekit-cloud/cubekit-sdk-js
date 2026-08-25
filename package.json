@@ -1,6 +1,6 @@
 {
   "name": "@cubekit-cloud/cubekit-sdk-js",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "itaces-crud format client for Cubekit (search/get/create/update/delete)",
   "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",
