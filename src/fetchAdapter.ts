@@ -1,5 +1,6 @@
-import axios, {
+import axios {
 	AxiosError,
+	AxiosHeaders,
 	type AxiosAdapter,
 	type AxiosResponse,
 	type InternalAxiosRequestConfig,
@@ -15,19 +16,29 @@ function headersToObject(headers: Headers | undefined | null): Record<string, st
 }
 
 /**
+ * AxiosHeaders has toJSON, not forEach. Missing Content-Type on POST makes Page Builder 500.
+ */
+export function requestHeadersToObject(headerBag: unknown): Record<string, string> {
+	if (!headerBag || typeof headerBag !== 'object') return {};
+	const json = AxiosHeaders.from(headerBag as InternalAxiosRequestConfig['headers']).toJSON(true) as Record<
+		string,
+		unknown
+	>;
+	const headers: Record<string, string> = {};
+	for (const [key, value] of Object.entries(json)) {
+		if (value == null || value === false) continue;
+		headers[key] = Array.isArray(value) ? value.join(', ') : String(value);
+	}
+	return headers;
+}
+
+/**
  * Axios adapter over `fetch` so the same client works in Node/SSR and tests that stub fetch.
  */
 export const fetchAxiosAdapter: AxiosAdapter = async (config: InternalAxiosRequestConfig): Promise<AxiosResponse> => {
 	const url = axios.getUri(config);
 	const method = (config.method ?? 'get').toUpperCase();
-	const headers: Record<string, string> = {};
-	const headerBag = config.headers;
-	if (headerBag && typeof headerBag.forEach === 'function') {
-		headerBag.forEach((value: unknown, key: string) => {
-			if (value === undefined || value === false) return;
-			headers[key] = String(value);
-		});
-	}
+	const headers = requestHeadersToObject(config.headers);
 	const body =
 		method === 'GET' || method === 'HEAD'
 			? undefined
