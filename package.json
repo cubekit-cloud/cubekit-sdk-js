@@ -1,13 +1,20 @@
 {
   "name": "@cubekit-cloud/cubekit-sdk-js",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "itaces-crud format client for Cubekit (search/get/create/update/delete)",
   "types": "dist/index.d.ts",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "prepublish": "npm run build",
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup -c --bundleConfigAsCjs && node scripts/assert-esm-named-exports.js",
     "docs": "jsdoc2md -c ./jsdoc2md.json -t ./README.hbs ./src/core/*.ts > ./README.md",
     "test": "jest"
   },

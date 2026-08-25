@@ -17,11 +17,15 @@ export default [
         file: packageJson.main,
         format: 'cjs',
         sourcemap: true,
+        // CJS consumers (webpack Node) can keep a minified file.
+        plugins: [terser()],
       },
       {
         file: packageJson.module,
         format: 'esm',
         sourcemap: true,
+        // Do not minify ESM: Next.js Turbopack cannot see named exports in
+        // `export{O as ApiClientError}` (one-line terser barrel) → compile 500.
       },
     ],
     external: ['react', 'react-dom', 'axios'],
@@ -33,7 +37,6 @@ export default [
       typescript({
         tsconfig: './tsconfig.json',
       }),
-      terser(),
     ],
   },
   {
