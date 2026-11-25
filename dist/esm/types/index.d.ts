@@ -4,7 +4,7 @@ export { toSearchSugarRelationships } from './utils/toSearchSugarRelationships';
 export { normalizeSearchRelationships } from './relationships';
 export { normalizeJoin, JOIN_OPERATOR_EQ } from './join';
 export { collectionPathFromSearchPath, readOrmTableName, resourcePathFromOpenApi, } from './openapi';
-export { ApiClientError, extractSearchItems, extractSearchTotal, parseApiEnvelope, type ApiResponseEnvelope, } from './envelope';
+export { ApiClientError, extractCount, extractSearchItems, extractSearchTotal, parseApiEnvelope, type ApiResponseEnvelope, } from './envelope';
 export { parseResponse, passthroughItemSchema, type ItemSchema } from './parseResponse';
 export { FormatClient, createFormatClient, createCrudClient, type CrudClient } from './core/FormatClient';
 export { fetchAxiosAdapter } from './fetchAdapter';

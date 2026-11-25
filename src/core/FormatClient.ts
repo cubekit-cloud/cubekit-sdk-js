@@ -5,7 +5,13 @@ import axios, {
 	isAxiosError,
 } from 'axios';
 import { fetchAxiosAdapter } from '../fetchAdapter';
-import { ApiClientError, extractSearchItems, extractSearchTotal, parseApiEnvelope } from '../envelope';
+import {
+	ApiClientError,
+	extractCount,
+	extractSearchItems,
+	extractSearchTotal,
+	parseApiEnvelope,
+} from '../envelope';
 import { normalizeJoin } from '../join';
 import { parseResponse, type ItemSchema } from '../parseResponse';
 import { normalizeSearchRelationships } from '../relationships';
@@ -177,6 +183,23 @@ export class FormatClient {
 				total: extractSearchTotal(envelope, items.length),
 				page,
 			};
+		} catch (error) {
+			if (error instanceof ApiClientError) throw error;
+			wrapAxiosError(error, context);
+		}
+	}
+
+	/** POST `{collection}/count`. Same IndexRequest body as search, no page/limit. */
+	async count(
+		ref: ResourceRef,
+		body: IndexRequestBody = {},
+		context = `POST ${ref.resource ?? ref.path ?? ''}/count`,
+	): Promise<number> {
+		const url = `${this.collectionPath(ref)}/count`;
+		try {
+			const response = await this.http.post(url, sparseSearchBody(body));
+			const envelope = parseApiEnvelope(response.data, context, response.status);
+			return extractCount(envelope.data, context);
 		} catch (error) {
 			if (error instanceof ApiClientError) throw error;
 			wrapAxiosError(error, context);

@@ -15,6 +15,8 @@ export declare class FormatClient {
     setResponseInterceptor(onFulfilled?: ((value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>) | null, onRejected?: ((error: unknown) => unknown) | null, options?: AxiosInterceptorOptions): number;
     collectionPath(ref: ResourceRef): string;
     search<T>(ref: ResourceRef, itemSchema?: ItemSchema<T>, body?: IndexRequestBody, page?: PageParams, context?: string): Promise<SearchResult<T>>;
+    /** POST `{collection}/count`. Same IndexRequest body as search, no page/limit. */
+    count(ref: ResourceRef, body?: IndexRequestBody, context?: string): Promise<number>;
     show<T>(ref: ResourceRef, id: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
     /** GET an exact path (`/me`, OpenAPI item path). */
     getPath<T>(path: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;

@@ -398,6 +398,8 @@ declare class ApiClientError extends Error {
 declare function parseApiEnvelope(raw: unknown, context: string, httpStatus?: number): ApiResponseEnvelope;
 declare function extractSearchItems(data: unknown): unknown[];
 declare function extractSearchTotal(envelope: ApiResponseEnvelope, itemCount: number): number;
+/** `POST …/count` payload: `{ count: long }`. */
+declare function extractCount(data: unknown, context: string): number;
 
 /**
  * itaces-crud format client (search/get/create/update/delete).
@@ -413,6 +415,8 @@ declare class FormatClient {
     setResponseInterceptor(onFulfilled?: ((value: AxiosResponse) => AxiosResponse | Promise<AxiosResponse>) | null, onRejected?: ((error: unknown) => unknown) | null, options?: AxiosInterceptorOptions): number;
     collectionPath(ref: ResourceRef): string;
     search<T>(ref: ResourceRef, itemSchema?: ItemSchema<T>, body?: IndexRequestBody, page?: PageParams, context?: string): Promise<SearchResult<T>>;
+    /** POST `{collection}/count`. Same IndexRequest body as search, no page/limit. */
+    count(ref: ResourceRef, body?: IndexRequestBody, context?: string): Promise<number>;
     show<T>(ref: ResourceRef, id: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
     /** GET an exact path (`/me`, OpenAPI item path). */
     getPath<T>(path: string, itemSchema?: ItemSchema<T>, context?: string): Promise<T>;
@@ -472,4 +476,4 @@ declare function createCrudClient(config?: FormatClientConfig): FormatClient;
  */
 declare const fetchAxiosAdapter: AxiosAdapter;
 
-export { AggregationsEnum, ApiClientError, ApiResponseEnvelope, CrudClient, CrudClientConfig, CrudMethod, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, FormatClient, FormatClientAuth, FormatClientConfig, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IJoinOnParameter, IJoinParameter, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IWhereParameter, IXlsxExportSettings, IndexRequestBody, ItemSchema, JOIN_OPERATOR_EQ, JoinClause, JoinOnClause, JoinTypesEnum, OperatorsEnum, OrderClause, OrderDirectionsEnum, OrderNullPositionsEnum, PageParams, RelationsModesEnum, RequestOrmMethodsEnum, ResourceRef, ResponseTypeEnum, SearchResult, SelectClause, StoreBody, UpdateBody, WhereClause, collectionPathFromSearchPath, createCrudClient, createFormatClient, extractSearchItems, extractSearchTotal, fetchAxiosAdapter, normalizeJoin, normalizeSearchRelationships, parseApiEnvelope, parseResponse, passthroughItemSchema, readOrmTableName, resourcePathFromOpenApi, toSearchSugarRelationships };
+export { AggregationsEnum, ApiClientError, ApiResponseEnvelope, CrudClient, CrudClientConfig, CrudMethod, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, FormatClient, FormatClientAuth, FormatClientConfig, ICsvExportSettings, IData, IDataRelationships, IExportField, IExportParameters, IJoinOnParameter, IJoinParameter, IOrderParameter, IOrmClientConfig, IOrmCreateOptions, IOrmDeleteOptions, IOrmGetByIdOptions, IOrmSearchOptions, IOrmUpdateOptions, IPaginations, IRelationship, IRelationships, IOrmRequestParameter as IRequestParams, IResponse, IResponseMeta, ISelectParameter, IWhereParameter, IXlsxExportSettings, IndexRequestBody, ItemSchema, JOIN_OPERATOR_EQ, JoinClause, JoinOnClause, JoinTypesEnum, OperatorsEnum, OrderClause, OrderDirectionsEnum, OrderNullPositionsEnum, PageParams, RelationsModesEnum, RequestOrmMethodsEnum, ResourceRef, ResponseTypeEnum, SearchResult, SelectClause, StoreBody, UpdateBody, WhereClause, collectionPathFromSearchPath, createCrudClient, createFormatClient, extractCount, extractSearchItems, extractSearchTotal, fetchAxiosAdapter, normalizeJoin, normalizeSearchRelationships, parseApiEnvelope, parseResponse, passthroughItemSchema, readOrmTableName, resourcePathFromOpenApi, toSearchSugarRelationships };

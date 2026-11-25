@@ -25,4 +25,6 @@ export declare class ApiClientError extends Error {
 export declare function parseApiEnvelope(raw: unknown, context: string, httpStatus?: number): ApiResponseEnvelope;
 export declare function extractSearchItems(data: unknown): unknown[];
 export declare function extractSearchTotal(envelope: ApiResponseEnvelope, itemCount: number): number;
+/** `POST …/count` payload: `{ count: long }`. */
+export declare function extractCount(data: unknown, context: string): number;
 //# sourceMappingURL=envelope.d.ts.map

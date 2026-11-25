@@ -10,6 +10,7 @@ export {
 } from './openapi';
 export {
 	ApiClientError,
+	extractCount,
 	extractSearchItems,
 	extractSearchTotal,
 	parseApiEnvelope,

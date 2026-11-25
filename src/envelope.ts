@@ -80,3 +80,11 @@ export function extractSearchItems(data: unknown): unknown[] {
 export function extractSearchTotal(envelope: ApiResponseEnvelope, itemCount: number): number {
 	return envelope.meta?.pagination?.total ?? envelope.meta?.total ?? itemCount;
 }
+
+/** `POST …/count` payload: `{ count: long }`. */
+export function extractCount(data: unknown, context: string): number {
+	const row = asRecord(data);
+	const raw = row?.count;
+	if (typeof raw === 'number' && Number.isFinite(raw)) return raw;
+	throw new ApiClientError(`${context}: missing data.count`, context);
+}

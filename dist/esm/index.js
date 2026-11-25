@@ -257,6 +257,14 @@ function extractSearchItems(data) {
 function extractSearchTotal(envelope, itemCount) {
     return envelope.meta?.pagination?.total ?? envelope.meta?.total ?? itemCount;
 }
+/** `POST …/count` payload: `{ count: long }`. */
+function extractCount(data, context) {
+    const row = asRecord(data);
+    const raw = row?.count;
+    if (typeof raw === 'number' && Number.isFinite(raw))
+        return raw;
+    throw new ApiClientError(`${context}: missing data.count`, context);
+}
 
 /** Identity schema when the caller does not want Zod. */
 const passthroughItemSchema = {
@@ -491,6 +499,20 @@ class FormatClient {
             wrapAxiosError(error, context);
         }
     }
+    /** POST `{collection}/count`. Same IndexRequest body as search, no page/limit. */
+    async count(ref, body = {}, context = `POST ${ref.resource ?? ref.path ?? ''}/count`) {
+        const url = `${this.collectionPath(ref)}/count`;
+        try {
+            const response = await this.http.post(url, sparseSearchBody(body));
+            const envelope = parseApiEnvelope(response.data, context, response.status);
+            return extractCount(envelope.data, context);
+        }
+        catch (error) {
+            if (error instanceof ApiClientError)
+                throw error;
+            wrapAxiosError(error, context);
+        }
+    }
     async show(ref, id, itemSchema, context = `GET ${ref.resource ?? ref.path ?? ''}/${id}`) {
         const url = joinUrl(this.collectionPath(ref), id);
         return this.getPath(url, itemSchema, context);
@@ -628,5 +650,5 @@ function createCrudClient(config) {
     return createFormatClient(config);
 }
 
-export { AggregationsEnum, ApiClientError, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, FormatClient, JOIN_OPERATOR_EQ, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum, collectionPathFromSearchPath, createCrudClient, createFormatClient, extractSearchItems, extractSearchTotal, fetchAxiosAdapter, normalizeJoin, normalizeSearchRelationships, parseApiEnvelope, parseResponse, passthroughItemSchema, readOrmTableName, resourcePathFromOpenApi, toSearchSugarRelationships };
+export { AggregationsEnum, ApiClientError, ExportEncodingTypesEnum, FileExportTypesEnum, FilterBooleansEnum, FilterTypesEnum, FilterValueTypesEnum, FormatClient, JOIN_OPERATOR_EQ, JoinTypesEnum, OperatorsEnum, OrderDirectionsEnum, OrderNullPositionsEnum, RelationsModesEnum, RequestOrmMethodsEnum, ResponseTypeEnum, collectionPathFromSearchPath, createCrudClient, createFormatClient, extractCount, extractSearchItems, extractSearchTotal, fetchAxiosAdapter, normalizeJoin, normalizeSearchRelationships, parseApiEnvelope, parseResponse, passthroughItemSchema, readOrmTableName, resourcePathFromOpenApi, toSearchSugarRelationships };
 //# sourceMappingURL=index.js.map
